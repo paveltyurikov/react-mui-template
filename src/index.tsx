@@ -2,13 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import initApp from "./lib/initApp";
 import AllProviders from "./providers/AllProviders";
 import reportWebVitals from "./reportWebVitals";
 
 
+initApp();
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <AllProviders>
