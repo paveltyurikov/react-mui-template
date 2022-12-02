@@ -1,4 +1,5 @@
 import { rest } from "msw";
+import blogHandlers from "./handlers/blog";
 
 
 export const handlers = [
@@ -9,4 +10,5 @@ export const handlers = [
       })
     );
   }),
+  ...blogHandlers,
 ];
