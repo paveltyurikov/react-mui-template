@@ -1,5 +1,6 @@
 import React from "react";
 import QueryClientProvider from "../QueryClientProvider";
+import SnackbarsProvider from "../SnackbarsProvider";
 import ThemeProvider from "../ThemeProvider";
 
 
@@ -8,7 +9,9 @@ const AllProviders: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   return (
     <ThemeProvider>
-      <QueryClientProvider>{children}</QueryClientProvider>
+      <QueryClientProvider>
+        <SnackbarsProvider>{children}</SnackbarsProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };
