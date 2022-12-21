@@ -11,11 +11,7 @@ const PostAdminTable = () => {
       <div>
         <ButtonCreatePost>Posts</ButtonCreatePost>
       </div>
-      <DataTable
-        isLoading={isLoading}
-        data={data}
-        columns={TABLE_COLUMNS}
-      />
+      <DataTable isLoading={isLoading} data={data} columns={TABLE_COLUMNS} />
     </div>
   );
 };
