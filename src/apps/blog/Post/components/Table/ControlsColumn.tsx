@@ -3,7 +3,7 @@ import PendingIcon from "@mui/icons-material/Pending";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import useVisibility from "hooks/useVisibility";
 import ButtonDeletePost from "../ActionButtons/BtnDelete";
-import ButtonEditPost from "../ActionButtons/BtnUpdate";
+import ButtonUpdatePost from '../ActionButtons/BtnUpdate'
 
 
 const ControlsColumn = ({ row }: { row: any }) => {
@@ -16,9 +16,9 @@ const ControlsColumn = ({ row }: { row: any }) => {
       </IconButton>
       <Menu open={visibility} onClose={hide} anchorEl={ref.current}>
         <MenuItem>
-          <ButtonEditPost post={row.original} variant="text" fullWidth>
+          <ButtonUpdatePost post={row.original} variant="text" fullWidth>
             Edit
-          </ButtonEditPost>
+          </ButtonUpdatePost>
         </MenuItem>
         <MenuItem>
           <ButtonDeletePost post={row.original} variant="text" fullWidth>

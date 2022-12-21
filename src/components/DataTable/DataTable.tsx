@@ -1,19 +1,19 @@
 import React from "react";
-import DataGridBody from "./Body/DataGridBody";
-import DataGridHead from "./Head/DataGridHead";
-import DataGridProvider from "./Provider/DataGridProvider";
-import Table from "./Table/Table";
+import Table from "./Table";
+import TableBody from "./TableBody";
+import DataGridHead from "./TableHead";
+import TableProvider from "./TableProvider";
 import { DataGridProps } from "./types";
 
 
 const DataTable: React.FC<DataGridProps> = ({ columns, data, isLoading }) => {
   return (
-    <DataGridProvider isLoading={isLoading} columns={columns} data={data}>
+    <TableProvider isLoading={isLoading} columns={columns} data={data}>
       <Table>
         <DataGridHead />
-        <DataGridBody />
+        <TableBody />
       </Table>
-    </DataGridProvider>
+    </TableProvider>
   );
 };
 
