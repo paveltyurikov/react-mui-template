@@ -1,10 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
-import PostAdminTable from "./apps/blog/Post/components/Table/Table";
 import initApp from "./lib/initApp";
-import AllProviders from "./providers/AllProviders";
 import reportWebVitals from "./reportWebVitals";
 
 
@@ -16,9 +13,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <AllProviders>
-      <PostAdminTable />
-    </AllProviders>
+    <App />
   </React.StrictMode>
 );
 
