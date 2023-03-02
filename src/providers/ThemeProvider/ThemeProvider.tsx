@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import DEFAULT_THEME from "constants/defaultTheme";
 
@@ -11,7 +11,7 @@ const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <MuiThemeProvider theme={DEFAULT_THEME}>
       <CssBaseline />
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
         {children}
       </LocalizationProvider>
     </MuiThemeProvider>
