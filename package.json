@@ -16,6 +16,7 @@
     "@tanstack/react-table": "^8.7.4",
     "axios": "^1.2.0",
     "date-fns": "^2.29.3",
+    "dayjs": "^1.11.7",
     "formik": "^2.2.9",
     "formik-mui": "^5.0.0-alpha.0",
     "formik-mui-lab": "^1.0.0",

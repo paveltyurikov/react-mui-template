@@ -48,8 +48,8 @@ const HomePage = () => {
           for mocking requests
         </li>
         <li>
-          <a href="https://date-fns.org/" rel="nofollow">
-            date-fns
+          <a href="https://day.js.org/en/" rel="nofollow">
+            Day.js
           </a>{" "}
           for handling dates
         </li>
@@ -57,12 +57,12 @@ const HomePage = () => {
           <a href="https://react-window.vercel.app/" rel="nofollow">
             react-window
           </a>{" "}
-          grid virtualization lib for long lists{" "}
+          grid virtualization lib for long lists mui.com{" "}
           <a
             href="https://mui.com/material-ui/react-autocomplete/#virtualization"
             rel="nofollow"
           >
-            mui.com recommends it
+            recommends it
           </a>
         </li>
       </ul>
