@@ -1,6 +1,6 @@
-import { axios } from "lib/axios";
 import { IPostFilterParams } from "../types";
 import { getPostListUrl } from "../urls/api";
+import { axios } from "~/lib/axios";
 
 
 const getPostList = async (filters: IPostFilterParams = {}) => {

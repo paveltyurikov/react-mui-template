@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
-import formatDate from "lib/formatDate";
 import { IPost } from "../../types";
 import ControlsColumn from "./ControlsColumn";
+import formatDate from "~/lib/formatDate";
 
 
 export const TABLE_COLUMNS: ColumnDef<IPost>[] = [

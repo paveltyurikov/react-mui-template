@@ -1,7 +1,7 @@
 import { useCallback } from "react";
-import reactQueryClient from "lib/reactQueryClient";
 import getPostDetailsKey from "../queryKeys/getDetailsKey";
 import { IPost } from "../types";
+import reactQueryClient from "~/lib/reactQueryClient";
 
 
 const usePostDetailsRefetch = () => {

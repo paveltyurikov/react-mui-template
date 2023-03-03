@@ -1,6 +1,6 @@
 import React from "react";
 import { SnackbarProvider } from "notistack";
-import { SNACKBARS_ORIGIN, MAX_SNACKBARS } from "constants/sanckbarsConfig";
+import { SNACKBARS_ORIGIN, MAX_SNACKBARS } from "~/constants/sanckbarsConfig";
 import CloseButton from "./CloseButton";
 
 

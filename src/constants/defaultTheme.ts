@@ -1,6 +1,6 @@
 import { createTheme, Theme } from "@mui/material/styles";
 import { get } from "lodash";
-import VirtualListBox from "components/Form/VirtualListBox";
+import VirtualListBox from "~/components/Form/VirtualListBox";
 
 
 export const THEME_COMMON_ROOT = {

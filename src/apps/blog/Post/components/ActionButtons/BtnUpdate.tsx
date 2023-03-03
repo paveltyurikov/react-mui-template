@@ -9,10 +9,10 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { Form, Formik, FormikHelpers } from "formik";
-import SubmitButton from "components/Form/SubmitButton";
-import useNotify from "hooks/useNotify";
-import useVisibility from "hooks/useVisibility";
-import getNotifyErrorMessage from "lib/getNotifyErrorMessage";
+
+import SubmitButton from "~/components/Form/SubmitButton";
+import useNotify from "~/hooks/useNotify";
+import useVisibility from "~/hooks/useVisibility";
 import usePostsRefetchList from "../../hooks/useRefetchList";
 import usePostUpdate from "../../hooks/useUpdate";
 import { UPDATE_DIALOG } from "../../text/dialog";
@@ -21,6 +21,7 @@ import { IPost } from "../../types";
 import { VALIDATION_SCHEMA } from "../Form/config";
 import { processResponseErrors } from "../Form/lib";
 import RenderFields from "../Form/RenderFields";
+import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 
 
 const ButtonUpdatePost: React.FC<

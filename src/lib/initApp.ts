@@ -1,4 +1,4 @@
-import { worker } from "mocks/browser";
+import { worker } from "~/mocks/browser";
 import { isDevEnv } from "./isEnv";
 
 

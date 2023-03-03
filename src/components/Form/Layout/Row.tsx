@@ -1,5 +1,5 @@
 import { Grid, GridProps } from "@mui/material";
-import { DEFAULT_FORM_COLUMN_SPACING } from "constants/layuot";
+import { DEFAULT_FORM_COLUMN_SPACING } from "~/constants/layuot";
 
 
 const FormRow: React.FC<Partial<GridProps>> = ({ children, ...gridProps }) => {

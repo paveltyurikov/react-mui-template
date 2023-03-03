@@ -1,5 +1,5 @@
 import { isEmpty } from "lodash";
-import { LIST_KEY } from "constants/defaultText";
+import { LIST_KEY } from "~/constants/defaultText";
 import { IPostFilterParams } from "../types";
 import { POST_KEY } from "./base";
 
