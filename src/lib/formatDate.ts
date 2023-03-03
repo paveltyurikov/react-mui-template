@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import {DATE_PARSE_FORMATS, DEFAULT_DATE_FORMAT} from "constants/date";
-import { DEFAULT_EMPTY_PLACEHOLDER } from "constants/defaultText";
+import {DATE_PARSE_FORMATS, DEFAULT_DATE_FORMAT} from "~/constants/date";
+import { DEFAULT_EMPTY_PLACEHOLDER } from "~/constants/defaultText";
 
 
 dayjs.extend(customParseFormat)

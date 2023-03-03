@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import reactQueryClient from "lib/reactQueryClient";
 import getListKey from "../queryKeys/getListKey";
+import reactQueryClient from "~/lib/reactQueryClient";
 
 
 const useRefetchPostList = () => {

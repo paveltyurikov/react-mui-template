@@ -9,10 +9,9 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { Form, Formik, FormikHelpers } from "formik";
-import SubmitButton from "components/Form/SubmitButton";
-import useNotify from "hooks/useNotify";
-import useVisibility from "hooks/useVisibility";
-import getNotifyErrorMessage from "lib/getNotifyErrorMessage";
+import SubmitButton from "~/components/Form/SubmitButton";
+import useNotify from "~/hooks/useNotify";
+import useVisibility from "~/hooks/useVisibility";
 import usePostCreate from "../../hooks/useCreate";
 import usePostRefetchList from "../../hooks/useRefetchList";
 import { CREATE_DIALOG } from "../../text/dialog";
@@ -21,6 +20,7 @@ import { IPostCreate } from "../../types";
 import { INITIAL_VALUES, VALIDATION_SCHEMA } from "../Form/config";
 import { processResponseErrors } from "../Form/lib";
 import RenderFields from "../Form/RenderFields";
+import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 
 
 const ButtonCreatePost: React.FC<ButtonProps> = ({ children, ...btnProps }) => {

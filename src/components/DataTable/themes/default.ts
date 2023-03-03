@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import defaultTheme from "constants/defaultTheme";
+import defaultTheme from "~/constants/defaultTheme";
 
 
 const theme = createTheme(defaultTheme, {

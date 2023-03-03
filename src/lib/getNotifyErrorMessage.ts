@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { get } from "lodash";
-import { ERRORS_BY_HTTP_CODE } from "constants/errorMessagesByHttpCodes";
+import { ERRORS_BY_HTTP_CODE } from "~/constants/errorMessagesByHttpCodes";
 
 
 const UNKNOWN_ERROR = "Unknown error";

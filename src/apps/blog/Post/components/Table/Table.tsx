@@ -1,4 +1,4 @@
-import DataTable from "components/DataTable";
+import DataTable from "~/components/DataTable";
 import usePostListFetch from "../../hooks/useGetList";
 import ButtonCreatePost from "../ActionButtons/BtnCreate";
 import { TABLE_COLUMNS } from "./config";

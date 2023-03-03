@@ -1,6 +1,6 @@
-import { axios } from "lib/axios";
 import { IPost } from "../types";
 import { getPostDetailsUrl } from "../urls/api";
+import { axios } from "~/lib/axios";
 
 
 const deletePost = async (id: IPost["id"]) => {

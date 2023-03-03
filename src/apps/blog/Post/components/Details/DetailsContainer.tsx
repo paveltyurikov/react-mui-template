@@ -1,9 +1,9 @@
 import React from 'react'
-import useNotify from "hooks/useNotify";
-import getNotifyErrorMessage from "lib/getNotifyErrorMessage";
+import useNotify from "~/hooks/useNotify";
 import usePostDetails from '../../hooks/useGetDetails'
 import { GET_DETAILS_NOTIFY } from "../../text/notify"
 import { IPost } from '../../types'
+import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 // import Details from './Details'
 
 const PostDetailsContainer:React.FC<{ postId: IPost["id"] }> = ({ postId }) => {

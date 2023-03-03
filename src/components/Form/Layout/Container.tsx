@@ -1,5 +1,5 @@
 import { Grid, GridProps } from "@mui/material";
-import { DEFAULT_FORM_ROW_SPACING } from "constants/layuot";
+import { DEFAULT_FORM_ROW_SPACING } from "~/constants/layuot";
 
 
 const FormContainer: React.FC<Partial<GridProps>> = ({

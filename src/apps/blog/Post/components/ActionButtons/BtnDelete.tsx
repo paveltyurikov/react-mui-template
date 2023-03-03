@@ -7,14 +7,14 @@ import {
   DialogActions,
   DialogTitle,
 } from "@mui/material";
-import useNotify from "hooks/useNotify";
-import useVisibility from "hooks/useVisibility";
-import getNotifyErrorMessage from "lib/getNotifyErrorMessage";
+import useNotify from "~/hooks/useNotify";
+import useVisibility from "~/hooks/useVisibility";
 import usePostDelete from "../../hooks/useDelete";
 import usePostsRefetchList from "../../hooks/useRefetchList";
 import { DELETE_DIALOG } from "../../text/dialog";
 import { DELETE_NOTIFY } from "../../text/notify";
 import { IPost } from "../../types";
+import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 
 
 const ButtonDeletePost: React.FC<

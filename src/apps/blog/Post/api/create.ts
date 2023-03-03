@@ -1,6 +1,6 @@
-import { axios } from "lib/axios";
 import { IPostCreate } from "../types";
 import { getPostUrl } from "../urls/api";
+import { axios } from "~/lib/axios";
 
 
 const createPost = async (data: IPostCreate) => {

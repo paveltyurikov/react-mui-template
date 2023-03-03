@@ -2,7 +2,7 @@ import React from "react";
 import { TextareaAutosize } from "@mui/material";
 import { Field } from "formik";
 import { TextField } from "formik-mui";
-import { FormCol, FormContainer, FormRow } from "components/Form/Layout";
+import { FormCol, FormContainer, FormRow } from "~/components/Form/Layout";
 
 
 const RenderFields = () => {

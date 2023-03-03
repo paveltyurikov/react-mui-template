@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import renderWithAllProviders from "tests/renderWithAllProviders";
+import renderWithAllProviders from "~/tests/renderWithAllProviders";
 import Table from "./Table";
 
 

@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import AllProviders from "providers/AllProviders";
+import AllProviders from "~/providers/AllProviders";
 
 
 const WithAllProviders = (Component: React.FC<any>, props?: any) => {

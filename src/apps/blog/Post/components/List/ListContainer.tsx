@@ -1,8 +1,8 @@
 import React from "react";
-import useNotify from "hooks/useNotify";
-import getNotifyErrorMessage from "lib/getNotifyErrorMessage";
-import { GET_LIST_NOTIFY } from "../../text/notify"
+import useNotify from "~/hooks/useNotify";
 import usePostList from "../../hooks/useGetList";
+import { GET_LIST_NOTIFY } from "../../text/notify"
+import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 // import PostList from "./List";
 
 
