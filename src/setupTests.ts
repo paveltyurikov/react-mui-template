@@ -2,23 +2,26 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom';
-
-
-const { server } = require("./mocks/server");
+import "@testing-library/jest-dom";
+import { server } from "./mocks/server";
+import reactQueryClient from "~/lib/reactQueryClient";
 
 
 beforeAll(() => {
   // Enable the mocking in tests.
-  server.listen({ onUnhandledRequest: "error" })
-})
+  server.listen({ onUnhandledRequest: "error" });
+});
 
 afterEach(() => {
   // Reset any runtime handlers tests may use.
-  server.resetHandlers()
-})
+  server.resetHandlers();
+});
 
 afterAll(() => {
   // Clean up once the tests are done.
-  server.close()
-})
+  server.close();
+});
+
+afterEach(async () => {
+  reactQueryClient.clear();
+});
