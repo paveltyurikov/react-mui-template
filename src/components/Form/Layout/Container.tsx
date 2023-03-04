@@ -8,10 +8,10 @@ const FormContainer: React.FC<Partial<GridProps>> = ({
 }) => {
   return (
     <Grid
+      rowSpacing={DEFAULT_FORM_ROW_SPACING}
       {...gridProps}
       container
       direction="column"
-      rowSpacing={DEFAULT_FORM_ROW_SPACING}
     >
       {children}
     </Grid>

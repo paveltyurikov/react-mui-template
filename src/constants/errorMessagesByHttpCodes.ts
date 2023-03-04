@@ -5,4 +5,4 @@ export const ERRORS_BY_HTTP_CODE = {
   404: "Not found",
   413: "Payload Too Large",
   500: "Internal Server Error",
-};
+} as const;

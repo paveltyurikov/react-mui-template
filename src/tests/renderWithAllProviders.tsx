@@ -18,4 +18,4 @@ const renderWithProviders = (
   return render(WithAllProviders(Component, props), options);
 };
 
-export default renderWithProviders
+export default renderWithProviders;

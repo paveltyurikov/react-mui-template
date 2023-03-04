@@ -1,13 +1,17 @@
+import { TextNullable, TimeStamp, UUID } from "~/lib/types";
+
+
 export interface IPostCreate {
   title: string;
-  content: string;
+  content: TextNullable;
 }
 
 export interface IPost extends IPostCreate {
-  id: string;
-  created: string;
-  updated: string;
-  deleted: string;
+  id: UUID;
+  published?: TimeStamp;
+  created?: TimeStamp;
+  updated?: TimeStamp;
+  deleted?: TimeStamp;
 }
 
-export interface IPostFilterParams extends Partial<IPost> {}
+export type IPostFilterParams = any;
