@@ -3,7 +3,7 @@ import PendingIcon from "@mui/icons-material/Pending";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import useVisibility from "~/hooks/useVisibility";
 import ButtonDeletePost from "../ActionButtons/BtnDelete";
-import ButtonUpdatePost from '../ActionButtons/BtnUpdate'
+import ButtonUpdatePost from "../ActionButtons/BtnUpdate";
 
 
 const ControlsColumn = ({ row }: { row: any }) => {

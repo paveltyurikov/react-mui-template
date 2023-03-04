@@ -1,13 +1,15 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { IPost } from "../../types";
-import ControlsColumn from "./ControlsColumn";
 import formatDate from "~/lib/formatDate";
+import { IPost } from "../../types";
+import ButtonCreatePost from "../ActionButtons/BtnCreate";
+import ControlsColumn from "./ControlsColumn";
+import TitleColumn from "./TitleColumn";
 
 
 export const TABLE_COLUMNS: ColumnDef<IPost>[] = [
   {
     header: "Title",
-    accessorKey: "title",
+    cell: TitleColumn,
   },
   {
     header: "Created",
@@ -18,11 +20,8 @@ export const TABLE_COLUMNS: ColumnDef<IPost>[] = [
     accessorFn: (row) => formatDate(row.updated),
   },
   {
-    header: "Deleted",
-    accessorFn: (row) => formatDate(row.deleted),
-  },
-  {
     id: "controls",
+    header: () => <ButtonCreatePost>Add post</ButtonCreatePost>,
     cell: ControlsColumn,
   },
 ];

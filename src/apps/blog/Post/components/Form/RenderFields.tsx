@@ -1,8 +1,8 @@
 import React from "react";
-import { TextareaAutosize } from "@mui/material";
 import { Field } from "formik";
 import { TextField } from "formik-mui";
 import { FormCol, FormContainer, FormRow } from "~/components/Form/Layout";
+import { POST_CONTENT_FIELD_CONFIG } from "./config";
 
 
 const RenderFields = () => {
@@ -14,17 +14,26 @@ const RenderFields = () => {
         </FormCol>
       </FormRow>
       <FormRow>
-        <FormCol xs>
+        <FormCol xs={6}>
           <Field
-            label="content"
-            name="content"
+            label="published"
+            name="created"
             component={TextField}
-            InputProps={{ inputComponent: TextareaAutosize, minRows:10 }}
-            minRows={10}
             fullWidth
+            disabled
           />
         </FormCol>
       </FormRow>
+      <FormCol xs sx={POST_CONTENT_FIELD_CONFIG.colSx}>
+        <Field
+          placeholder="Type your post here..."
+          id="content"
+          name="content"
+          component={TextField}
+          InputProps={POST_CONTENT_FIELD_CONFIG.InputProps}
+          fullWidth
+        />
+      </FormCol>
     </FormContainer>
   );
 };

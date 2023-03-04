@@ -1,12 +1,12 @@
 import { useCallback } from "react";
+import reactQueryClient from "~/lib/reactQueryClient";
 import getPostDetailsKey from "../queryKeys/getDetailsKey";
 import { IPost } from "../types";
-import reactQueryClient from "~/lib/reactQueryClient";
 
 
 const usePostDetailsRefetch = () => {
   return useCallback(
-    (id:IPost["id"]) =>
+    (id: IPost["id"]) =>
       reactQueryClient.refetchQueries(getPostDetailsKey(id), {
         exact: true,
       }),

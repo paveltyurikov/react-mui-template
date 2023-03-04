@@ -6,13 +6,13 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
 } from "@mui/material";
 import { Form, Formik, FormikHelpers } from "formik";
-
+import DialogTitleWithClose from "~/components/Dialog/DialogTitleWithClose";
 import SubmitButton from "~/components/Form/SubmitButton";
 import useNotify from "~/hooks/useNotify";
 import useVisibility from "~/hooks/useVisibility";
+import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 import usePostsRefetchList from "../../hooks/useRefetchList";
 import usePostUpdate from "../../hooks/useUpdate";
 import { UPDATE_DIALOG } from "../../text/dialog";
@@ -21,13 +21,11 @@ import { IPost } from "../../types";
 import { VALIDATION_SCHEMA } from "../Form/config";
 import { processResponseErrors } from "../Form/lib";
 import RenderFields from "../Form/RenderFields";
-import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 
 
 const ButtonUpdatePost: React.FC<
-  Partial<ButtonProps> & {
+  ButtonProps & {
     post: IPost;
-    children?: React.ReactNode;
   }
 > = ({ post, children, ...btnProps }) => {
   const { showSuccessNotify, showErrorNotify } = useNotify();
@@ -53,15 +51,15 @@ const ButtonUpdatePost: React.FC<
         },
       });
     },
-    [hide, showErrorNotify, showSuccessNotify, updatePost]
+    [hide, refetchPostsList, showErrorNotify, showSuccessNotify, updatePost]
   );
   return (
     <>
       <Button
+        data-testid="Post-update-btn"
         startIcon={<EditIcon />}
         size="small"
         color="primary"
-        variant="outlined"
         {...btnProps}
         onClick={show}
       >
@@ -72,18 +70,24 @@ const ButtonUpdatePost: React.FC<
         validationSchema={VALIDATION_SCHEMA}
         onSubmit={handleUpdate}
       >
-        <Dialog open={visibility} fullWidth>
-          <Form>
-            <DialogTitle>{UPDATE_DIALOG.title}</DialogTitle>
+        <Form>
+          <Dialog open={visibility} fullWidth>
+            <DialogTitleWithClose data-testid="dialog-title" onClose={hide}>
+              {UPDATE_DIALOG.title}
+            </DialogTitleWithClose>
             <DialogContent>
               <RenderFields />
             </DialogContent>
             <DialogActions>
-              <SubmitButton>{UPDATE_DIALOG.buttons.submit}</SubmitButton>
-              <Button onClick={hide}>{UPDATE_DIALOG.buttons.cancel}</Button>
+              <Button data-testid="dialog-btn-cancel" onClick={hide}>
+                {UPDATE_DIALOG.buttons.cancel}
+              </Button>
+              <SubmitButton data-testid="dialog-btn-submit">
+                {UPDATE_DIALOG.buttons.submit}
+              </SubmitButton>
             </DialogActions>
-          </Form>
-        </Dialog>
+          </Dialog>
+        </Form>
       </Formik>
     </>
   );

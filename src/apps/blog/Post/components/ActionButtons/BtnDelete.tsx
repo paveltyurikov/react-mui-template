@@ -1,20 +1,15 @@
 import React from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import {
-  Button,
-  ButtonProps,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-} from "@mui/material";
+import { Button, ButtonProps, Dialog, DialogActions } from "@mui/material";
+import DialogTitleWithClose from "~/components/Dialog/DialogTitleWithClose";
 import useNotify from "~/hooks/useNotify";
 import useVisibility from "~/hooks/useVisibility";
+import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 import usePostDelete from "../../hooks/useDelete";
 import usePostsRefetchList from "../../hooks/useRefetchList";
 import { DELETE_DIALOG } from "../../text/dialog";
 import { DELETE_NOTIFY } from "../../text/notify";
 import { IPost } from "../../types";
-import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 
 
 const ButtonDeletePost: React.FC<
@@ -22,7 +17,7 @@ const ButtonDeletePost: React.FC<
     post: IPost;
     children?: React.ReactNode;
   }
-> = ({ post, children, ...btnProps }) => {
+> = ({ post, ...btnProps }) => {
   const { showSuccessNotify, showErrorNotify } = useNotify();
   const { visibility, hide, show } = useVisibility();
   const { mutate: deletePost } = usePostDelete();
@@ -46,20 +41,21 @@ const ButtonDeletePost: React.FC<
   return (
     <>
       <Button
+        data-testid="Post-delete-btn"
         startIcon={<DeleteForeverIcon />}
         size="small"
         color="secondary"
         variant="outlined"
         {...btnProps}
         onClick={show}
-      >
-        {children}
-      </Button>
-      <Dialog open={visibility} fullWidth>
-        <DialogTitle>{DELETE_DIALOG.title}</DialogTitle>
+      />
+      <Dialog data-testid="dialog-title" open={visibility} fullWidth>
+        <DialogTitleWithClose onClose={hide}>
+          {DELETE_DIALOG.title}
+        </DialogTitleWithClose>
         <DialogActions>
-          <Button onClick={hide}>{DELETE_DIALOG.buttons.cancel}</Button>
-          <Button onClick={handleDelete} color="secondary">
+          <Button  data-testid="dialog-btn-cancel" onClick={hide}>{DELETE_DIALOG.buttons.cancel}</Button>
+          <Button  data-testid="dialog-btn-submit" onClick={handleDelete} color="secondary">
             {DELETE_DIALOG.buttons.submit}
           </Button>
         </DialogActions>
