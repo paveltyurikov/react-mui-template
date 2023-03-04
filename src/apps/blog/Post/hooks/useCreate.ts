@@ -4,9 +4,7 @@ import { IPostCreate } from "../types";
 
 
 const usePostCreate = () => {
-  return useMutation("postCreate", (data: IPostCreate) =>
-    createPost(data)
-  );
+  return useMutation("postCreate", (data: IPostCreate) => createPost(data));
 };
 
 export default usePostCreate;

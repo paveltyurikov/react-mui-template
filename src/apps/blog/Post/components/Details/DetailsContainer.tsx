@@ -1,22 +1,31 @@
-import React from 'react'
+import React from "react";
+import { useParams } from "react-router-dom";
+import ButtonUpdatePost from "~/apps/blog/Post/components/ActionButtons/BtnUpdate";
 import useNotify from "~/hooks/useNotify";
-import usePostDetails from '../../hooks/useGetDetails'
-import { GET_DETAILS_NOTIFY } from "../../text/notify"
-import { IPost } from '../../types'
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
-// import Details from './Details'
+import usePostDetails from "../../hooks/useGetDetails";
+import { GET_DETAILS_NOTIFY } from "../../text/notify";
+import { IPost } from "../../types";
+import Details from "./Details";
 
-const PostDetailsContainer:React.FC<{ postId: IPost["id"] }> = ({ postId }) => {
+
+const PostDetailsContainer = () => {
+  let { id: postId } = useParams<{ id: IPost["id"] }>();
   const { showErrorNotify } = useNotify();
-  const { data, isLoading } = usePostDetails(postId, {
+  const { data, isLoading } = usePostDetails(postId || "", {
     enabled: Boolean(postId),
     onError: (error: any) => {
       showErrorNotify({
-         message: getNotifyErrorMessage(error, GET_DETAILS_NOTIFY.error),
+        message: getNotifyErrorMessage(error, GET_DETAILS_NOTIFY.error),
       });
     },
-  })
- return null // <Details post={data} isLoading={isLoading} />
-}
+  });
+  return (
+    <>
+      {data ? <ButtonUpdatePost post={data}>Edit</ButtonUpdatePost> : null}
+      <Details post={data} isLoading={isLoading} />
+    </>
+  );
+};
 
-export default PostDetailsContainer
+export default PostDetailsContainer;

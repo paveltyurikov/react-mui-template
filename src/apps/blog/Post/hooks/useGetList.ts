@@ -7,11 +7,7 @@ import { IPost } from "../types";
 
 const usePostList = (filters?: any, options = {}) => {
   const KEY = getPostListKey(filters);
-  return useQuery<IPost[], AxiosError>(
-    KEY,
-    () => getPost(filters),
-    options
-  );
+  return useQuery<IPost[], AxiosError>(KEY, () => getPost(filters), options);
 };
 
 export default usePostList;

@@ -40,6 +40,6 @@
     ]
   },
   "settings": {
-    "import/internal-regex": "^~/(apps|components|constants|hooks|mocks|tests)"
+    "import/internal-regex": "^~\/(apps|components|constants|hooks|mocks|tests|lib)"
   }
 }

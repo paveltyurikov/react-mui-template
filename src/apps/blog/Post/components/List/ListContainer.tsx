@@ -1,22 +1,24 @@
 import React from "react";
+import { AxiosError } from "axios";
+import { IPost } from "~/apps/blog/Post/types";
 import useNotify from "~/hooks/useNotify";
-import usePostList from "../../hooks/useGetList";
-import { GET_LIST_NOTIFY } from "../../text/notify"
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
-// import PostList from "./List";
+import usePostList from "../../hooks/useGetList";
+import { GET_LIST_NOTIFY } from "../../text/notify";
+import PostList from "./List";
 
 
-const PostListContainer:React.FC<{filters:any}> = ({filters}) => {
+const PostListContainer: React.FC<{ filters?: any }> = ({ filters = {} }) => {
   const { showErrorNotify } = useNotify();
-  const { data, isLoading  } = usePostList(filters, {
-    onError: (error: any) => {
+  const { data = [] } = usePostList(filters, {
+    onError: (error: AxiosError<IPost>) => {
       showErrorNotify({
-         message: getNotifyErrorMessage(error, GET_LIST_NOTIFY.error),
+        message: getNotifyErrorMessage(error, GET_LIST_NOTIFY.error),
       });
     },
   });
 
-  return null//<PostList isLoading={isLoading} posts={data} />
+  return <PostList posts={data} />;
 };
 
 export default PostListContainer;

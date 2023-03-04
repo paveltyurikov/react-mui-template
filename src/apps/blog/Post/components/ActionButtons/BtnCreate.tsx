@@ -6,12 +6,14 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
 } from "@mui/material";
+import {AxiosError} from "axios/index";
 import { Form, Formik, FormikHelpers } from "formik";
+import DialogTitleWithClose from "~/components/Dialog/DialogTitleWithClose";
 import SubmitButton from "~/components/Form/SubmitButton";
 import useNotify from "~/hooks/useNotify";
 import useVisibility from "~/hooks/useVisibility";
+import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 import usePostCreate from "../../hooks/useCreate";
 import usePostRefetchList from "../../hooks/useRefetchList";
 import { CREATE_DIALOG } from "../../text/dialog";
@@ -20,10 +22,9 @@ import { IPostCreate } from "../../types";
 import { INITIAL_VALUES, VALIDATION_SCHEMA } from "../Form/config";
 import { processResponseErrors } from "../Form/lib";
 import RenderFields from "../Form/RenderFields";
-import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 
 
-const ButtonCreatePost: React.FC<ButtonProps> = ({ children, ...btnProps }) => {
+const ButtonCreatePost = (props: ButtonProps) => {
   const { showErrorNotify, showSuccessNotify } = useNotify();
   const { visibility, hide, show } = useVisibility();
   const refetchPostList = usePostRefetchList();
@@ -52,26 +53,26 @@ const ButtonCreatePost: React.FC<ButtonProps> = ({ children, ...btnProps }) => {
   );
   return (
     <>
-      <Button  startIcon={<AddIcon />} size="small" {...btnProps} onClick={show}>
-        {children}
-      </Button>
+      <Button data-testid="Post-create-btn" startIcon={<AddIcon />} size="small" {...props} onClick={show} />
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={VALIDATION_SCHEMA}
         onSubmit={handleCreatePost}
       >
-        <Dialog open={visibility} fullWidth>
-          <Form>
-            <DialogTitle>{CREATE_DIALOG.title}</DialogTitle>
+        <Form>
+          <Dialog open={visibility} fullWidth>
+            <DialogTitleWithClose data-testid="dialog-title" onClose={hide}>
+              {CREATE_DIALOG.title}
+            </DialogTitleWithClose>
             <DialogContent>
               <RenderFields />
             </DialogContent>
             <DialogActions>
-              <SubmitButton>{CREATE_DIALOG.buttons.submit}</SubmitButton>
-              <Button onClick={hide}>{CREATE_DIALOG.buttons.cancel}</Button>
+              <Button data-testid="dialog-btn-cancel" onClick={hide}>{CREATE_DIALOG.buttons.cancel}</Button>
+              <SubmitButton data-testid="dialog-btn-submit">{CREATE_DIALOG.buttons.submit}</SubmitButton>
             </DialogActions>
-          </Form>
-        </Dialog>
+          </Dialog>
+        </Form>
       </Formik>
     </>
   );

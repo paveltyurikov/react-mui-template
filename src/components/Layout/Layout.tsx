@@ -1,18 +1,23 @@
-import { Container, Stack } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import Link from "../Link";
+import Header from "~/components/Layout/Header/Header";
+import Navigation from "~/components/Layout/Navigation/Navigation";
 
 
 const Layout = () => {
   return (
-    <Container>
-      <Stack direction="row" spacing={2}>
-        <Link to={"/"}>Home</Link>
-        <Link to={"posts"}>Example app</Link>
-        <Link to={"404"}>404</Link>
-      </Stack>
-      <Outlet />
-    </Container>
+    <>
+      <Header>
+        <Container>
+          <Navigation />
+        </Container>
+      </Header>
+      <Box component="main">
+        <Container>
+          <Outlet />
+        </Container>
+      </Box>
+    </>
   );
 };
 

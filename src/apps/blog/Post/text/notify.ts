@@ -1,22 +1,22 @@
-export const CREATE_NOTIFY = {
-  success: "Create Post success",
-  error: "Create Post error",
+export const GET_LIST_NOTIFY = {
+  error: "Failed get Post list",
 };
 
-export const GET_LIST_NOTIFY = {
-  error: "Get list Post error",
-}
-
 export const GET_DETAILS_NOTIFY = {
-  error: "Get details Post error",
-}
+  error: "Failed get Post details",
+};
+
+export const CREATE_NOTIFY = {
+  success: "Post created",
+  error: "Failed create Post",
+};
 
 export const DELETE_NOTIFY = {
-  success: "Deleted success",
-  error: "Delete error",
-}
+  success: "Deleted deleted",
+  error: "Failed delete Post",
+};
 
 export const UPDATE_NOTIFY = {
-  success: "Updated success",
-  error: "Updated error",
-}
+  success: "Post updated",
+  error: "Failed update Post",
+};

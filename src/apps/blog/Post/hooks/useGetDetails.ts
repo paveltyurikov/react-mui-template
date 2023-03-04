@@ -8,7 +8,7 @@ import { IPost } from "../types";
 const usePostDetails = (id: IPost["id"], options = {}) => {
   const KEY = getPostDetailsKey(id);
   return useQuery<IPost, AxiosError>(KEY, () => getPostDetails(id), {
-    enabled:Boolean(id),
+    enabled: Boolean(id),
     ...options,
   });
 };
