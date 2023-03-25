@@ -6,7 +6,7 @@ import Table from "./Table";
 describe("PostsAdminTable", () => {
   test("can create post", () => {
     renderWithAllProviders(Table);
-    const button = screen.getByText(/posts/i);
-    console.log(button);
+    const button = screen.getByTestId("Post-create-btn");
+    expect(button).toBeInTheDocument()
   });
 });
