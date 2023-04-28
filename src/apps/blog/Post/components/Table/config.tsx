@@ -13,11 +13,11 @@ export const TABLE_COLUMNS: ColumnDef<IPost>[] = [
   },
   {
     header: "Created",
-    accessorFn: (row) => formatDate(row.created),
+    accessorFn: (row) => formatDate(row.created_at),
   },
   {
     header: "Updated",
-    accessorFn: (row) => formatDate(row.updated),
+    accessorFn: (row) => formatDate(row.updated_at),
   },
   {
     id: "controls",

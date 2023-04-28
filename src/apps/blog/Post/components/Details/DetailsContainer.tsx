@@ -1,16 +1,20 @@
 import React from "react";
+import { Container } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { IconBtnBack } from "~/components/Button";
 import useNotify from "~/hooks/useNotify";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
-import { useDetailsPost } from "../../hooks";
+import { useDetailsPost, useNavigateToListPost } from "../../hooks";
 import { GET_DETAILS_NOTIFY } from "../../text/notify";
-import { IPost } from "../../types";
+import { PostDetailsParams } from "../../types";
+import BtnDeletePost from "../ActionButtons/BtnDelete";
 import ButtonUpdatePost from "../ActionButtons/BtnUpdate";
 import Details from "./Details";
 
 
 const PostDetailsContainer = () => {
-  let { id: postId } = useParams<{ id: IPost["id"] }>();
+  let { id: postId } = useParams<PostDetailsParams>();
+  const navigateToList = useNavigateToListPost();
   const { showErrorNotify } = useNotify();
   const { data, refetch, isLoading } = useDetailsPost(postId || "", {
     enabled: Boolean(postId),
@@ -21,10 +25,20 @@ const PostDetailsContainer = () => {
     },
   });
   return (
-    <>
-      {data ? <ButtonUpdatePost post={data} refetchDeps={refetch}>Edit</ButtonUpdatePost> : null}
+    <Container>
+      <IconBtnBack onClick={navigateToList} />{" "}
+      {data ? (
+        <>
+          <ButtonUpdatePost post={data} refetchDeps={refetch}>
+            Edit
+          </ButtonUpdatePost>{" "}
+          <BtnDeletePost post={data} refetchDeps={navigateToList}>
+            Delete
+          </BtnDeletePost>
+        </>
+      ) : null}
       <Details post={data} isLoading={isLoading} />
-    </>
+    </Container>
   );
 };
 

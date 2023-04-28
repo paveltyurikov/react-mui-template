@@ -11,11 +11,9 @@ import RenderFields from "../Form/RenderFields";
 export type BtnCreatePostProps = ButtonProps & {
   refetchDeps?: () => void;
 };
+//yo
 
-const BtnCreatePost = ({
-  refetchDeps,
-  ...props
-}: BtnCreatePostProps) => {
+const BtnCreatePost = ({ refetchDeps, ...props }: BtnCreatePostProps) => {
   const {
     DIALOG_PROPS,
     visibility: { visibility, show, hide },

@@ -1,10 +1,10 @@
 import {
-  ListItem,
   ListItemIcon,
   ListItemProps,
   ListItemText,
+  MenuItem,
 } from "@mui/material";
-import Link from "~/components/Link";
+import { useNavigate } from "react-router-dom";
 import { NavigationItemType } from "~/lib/types";
 
 
@@ -14,16 +14,21 @@ const NavigationItem = ({
   dense,
   Icon,
   onClick,
-}: Omit<NavigationItemType, 'element'> & ListItemProps) => {
+}: NavigationItemType & ListItemProps) => {
+  const navigate = useNavigate();
   return (
-    <ListItem dense={dense} onClick={onClick}>
+    <MenuItem
+      dense={dense}
+      onClick={(e) => {
+        if (onClick) onClick(e);
+        navigate(path);
+      }}
+    >
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
-      <ListItemText>
-        <Link to={path}>{title}</Link>
-      </ListItemText>
-    </ListItem>
+      <ListItemText>{title}</ListItemText>
+    </MenuItem>
   );
 };
 

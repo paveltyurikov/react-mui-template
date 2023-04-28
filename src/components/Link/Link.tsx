@@ -1,17 +1,23 @@
-import { Link as MUILink, LinkProps } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import React from 'react'
+import { Link as MuiLink, LinkProps as MuiLinkProps} from "@mui/material";
+import { Link as RouterLink, LinkProps as RouterLinkProps } from "react-router-dom";
 
 
-const Link: React.FC<{ to: string } & LinkProps> = ({
+export type LinkProps = MuiLinkProps & RouterLinkProps
+
+const Link = React.forwardRef<
+  HTMLButtonElement,
+  Exclude<LinkProps, "children">
+>(({
   children,
   to,
   ...linkProps
-}) => {
+}, ref) => {
   return (
-    <MUILink component={RouterLink} to={to} {...linkProps}>
+    <MuiLink component={RouterLink} to={to} {...linkProps}>
       {children}
-    </MUILink>
+    </MuiLink>
   );
-};
+});
 
 export default Link;
