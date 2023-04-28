@@ -1,17 +1,23 @@
-import { TextNullable, TimeStampNullable, UUID } from "~/constants/types";
+import { DateTime, ModelBase } from "~/lib/types";
 
 
-export interface IPostCreate {
+export interface IPost extends ModelBase {
+  published: DateTime,
   title: string;
-  content: TextNullable;
+  content: string;
 }
 
-export interface IPost extends IPostCreate {
-  id: UUID;
-  published?: TimeStampNullable;
-  created?: TimeStampNullable;
-  updated?: TimeStampNullable;
-  deleted?: TimeStampNullable;
+export interface PostCreateDto {
+  title: string;
+  content: string;
 }
 
-export type IPostFilterParams = any;
+export interface PostUpdateDto extends ModelBase {
+  title: string;
+  content: string;
+}
+
+export type IPostFilters = {
+  title: string;
+  content: string;
+};

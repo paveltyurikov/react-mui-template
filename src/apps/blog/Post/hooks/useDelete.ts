@@ -1,14 +1,15 @@
 import { useMutation } from "react-query";
-import deletePost from "../api/delete";
+import PostApi from "../api";
+import { QUERY_KEY } from "../config";
 import { IPost } from "../types";
 
 
-const usePostDelete = (options = {}) => {
+const useDeletePost = (id: IPost["id"], options = {}) => {
   return useMutation(
-    "postDelete",
-    (id: IPost["id"]) => deletePost(id),
-    options
+    QUERY_KEY.delete(id),
+    () => PostApi.delete(id),
+    {...options}
   );
 };
 
-export default usePostDelete;
+export default useDeletePost;

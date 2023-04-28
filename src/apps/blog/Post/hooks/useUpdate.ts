@@ -1,10 +1,15 @@
 import { useMutation } from "react-query";
-import updatePost from "../api/update";
+import PostApi from "../api";
+import { QUERY_KEY } from "../config";
 import { IPost } from "../types";
 
 
-const usePostUpdate = (options = {}) => {
-  return useMutation("postUpdate", (data: IPost) => updatePost(data), options);
+const useUpdatePost = (id: IPost["id"], options = {}) => {
+  return useMutation(
+    QUERY_KEY.update(id),
+    (data: IPost) => PostApi.update(id, data),
+    options
+  );
 };
 
-export default usePostUpdate;
+export default useUpdatePost;

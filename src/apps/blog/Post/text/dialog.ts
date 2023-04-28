@@ -23,6 +23,6 @@ export const DELETE_DIALOG = {
 };
 
 export const VALIDATION_ERRORS = {
-  title: { required: "Please, enter Post title" },
-  content: { required: "Please, enter Post content" },
+  title: { required: "Enter title for post" },
+  content: { required: "Enter content of post" },
 };

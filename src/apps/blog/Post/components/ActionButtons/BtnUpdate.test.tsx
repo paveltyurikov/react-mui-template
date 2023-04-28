@@ -1,86 +1,97 @@
-import { screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { IPost } from "~/apps/blog/Post/types";
+import { vi } from "vitest";
+import { INCORRECT_DATA } from "~/tests/blog/Post";
 import renderWithAllProviders from "~/tests/renderWithAllProviders";
-import ButtonUpdatePost from "./BtnUpdate";
+import PostApi from "../../api";
+import BtnUpdatePost from "./BtnUpdate";
 
 
-const NEW_POST: IPost = {
-  id: "test_id",
-  title: "Test Post",
-  content: "Test Post Content",
+const EXISTING_POST = {
+  id: "test-uuid",
+  title: "ExistingPostTitle",
+  content: "ExistingPostContent",
 };
 
-const ui = () => (
-  <ButtonUpdatePost post={NEW_POST}>Update Post</ButtonUpdatePost>
-);
-
-const NEXT_POST: IPost = {
-  id: "",
-  title: "Test next Post",
-  content: "Test next Post Content",
-};
-const fillPostForm = async (post: IPost) => {
-  await userEvent.clear(screen.getByLabelText(/title/i));
-  await userEvent.type(screen.getByLabelText(/title/i), post.title);
-  await userEvent.type(
-    screen.getByPlaceholderText(/type your post here/i),
-    post.content || ""
-  );
+const CORRECT_DATA = {
+  title: "PostTitle",
+  content: "PostContent",
 };
 
-const openFormDialog = async () => {
-  await userEvent.click(screen.getByText(/Update Post/i));
-};
-
-const submitForm = async () => {
-  await userEvent.click(screen.getByText(/^Update$/i));
-};
-describe("ButtonUpdatePost", () => {
+describe("BtnUpdatePost", () => {
   it("should render correctly", async () => {
-    renderWithAllProviders(ui);
-    expect(screen.getByTestId("Post-update-btn")).toHaveTextContent(
-      "Update Post"
-    );
-    await openFormDialog();
-    expect(screen.getByTestId("dialog-title")).toHaveTextContent("Update Post");
-    expect(screen.getByTestId("dialog-btn-cancel")).toHaveTextContent(
-      /cancel/i
-    );
-    expect(screen.getByTestId("dialog-btn-submit")).toHaveTextContent(
-      /Update/i
-    );
-    expect(screen.getByTestId("dialog-btn-submit")).toHaveTextContent(
-      /Update/i
-    );
-    expect(screen.getByLabelText(/title/i)).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText(/type your post here/i)
-    ).toBeInTheDocument();
+    renderWithAllProviders(BtnUpdatePost, {
+      children: "Update Post",
+      post: EXISTING_POST,
+    });
+
+    const button = await screen.getByTestId("Post-update-btn");
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveTextContent("Update Post");
+    // open dialog
+    await act(() => userEvent.click(button));
+
+    const dialogTitle = await screen.getByTestId("dialog-title");
+    const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
+    const dialogBtnCancel = await screen.getByTestId("btn-dialog-cancel");
+
+    expect(dialogTitle.textContent).toBe("Update Post");
+    expect(dialogBtnSubmit.textContent).toBe("Update");
+    expect(dialogBtnSubmit).toBeDisabled();
+    expect(dialogBtnCancel.textContent).toBe("Cancel");
+    expect(dialogBtnCancel).toBeEnabled();
   });
-  it("should success", async () => {
-    renderWithAllProviders(ui);
-    await openFormDialog();
-    expect(screen.getByText(/^update$/i)).toBeDisabled();
-    await fillPostForm(NEXT_POST);
-    expect(screen.getByText(/^update$/i)).toBeEnabled();
-    await submitForm();
-    await screen.findByText("Post updated");
+  it("should handle submit success", async () => {
+    const updatePost = vi.spyOn(PostApi, "update");
+    renderWithAllProviders(BtnUpdatePost, {
+      children: "Update Post",
+      post: EXISTING_POST,
+    });
+    const button = await screen.getByTestId("Post-update-btn");
+    await act(() => userEvent.click(button));
+    const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
+    expect(dialogBtnSubmit).toBeDisabled();
+    const titleField = screen.getByLabelText("title");
+    const contentField = screen.getByPlaceholderText("Type your post here...");
+    await act(() => userEvent.clear(titleField));
+    await act(() => userEvent.clear(contentField));
+    await act(() => userEvent.type(titleField, CORRECT_DATA.title));
+    await act(() => userEvent.type(contentField, CORRECT_DATA.content));
+    expect(dialogBtnSubmit).toBeEnabled();
+    await act(() => userEvent.click(dialogBtnSubmit));
+    const notify = await screen.getByTestId("update-post-success-notify");
+    expect(notify.textContent).toBe("Post updated");
+    expect(updatePost).toHaveBeenCalledTimes(1);
+    expect(updatePost).toHaveBeenCalledWith(EXISTING_POST.id, {
+      id: EXISTING_POST.id,
+      ...CORRECT_DATA,
+    });
   });
-  it("should show server errors", async () => {
-    renderWithAllProviders(ui);
-    await openFormDialog();
-    expect(screen.getByText(/^Update$/i)).toBeDisabled();
-    await fillPostForm({ ...NEW_POST, title: "test_bad_request" });
-    expect(screen.getByText(/^Update$/i)).toBeEnabled();
-    await submitForm();
-    await screen.findByText("Failed update Post");
-    expect(screen.getByText(/^Update$/i)).toBeDisabled();
-    expect(
-      screen.getByText("This title has already been taken")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("Content field has validation problems")
-    ).toBeInTheDocument();
+  it("should handle submit error", async () => {
+    const updatePost = vi.spyOn(PostApi, "update");
+    renderWithAllProviders(BtnUpdatePost, {
+      children: "Update Post",
+      post: EXISTING_POST,
+    });
+    const button = await screen.getByTestId("Post-update-btn");
+    await act(() => userEvent.click(button));
+    const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
+    expect(dialogBtnSubmit).toBeDisabled();
+    const titleField = screen.getByLabelText("title");
+    const contentField = screen.getByPlaceholderText("Type your post here...");
+    await act(() => userEvent.clear(titleField));
+    await act(() => userEvent.clear(contentField));
+    await act(() => userEvent.type(titleField, INCORRECT_DATA.title));
+    await act(() => userEvent.type(contentField, INCORRECT_DATA.content));
+    expect(dialogBtnSubmit).toBeEnabled();
+    await act(() => userEvent.click(dialogBtnSubmit));
+    const notify = await screen.getByTestId("update-post-error-notify");
+    expect(notify.textContent).toBe("Failed update Post");
+    expect(updatePost).toHaveBeenCalledTimes(1);
+    expect(updatePost).toHaveBeenCalledWith(EXISTING_POST.id, {
+      id: EXISTING_POST.id,
+      ...INCORRECT_DATA,
+    });
   });
 });

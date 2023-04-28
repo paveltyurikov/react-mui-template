@@ -1,10 +1,10 @@
 import { axios } from "~/lib/axios";
-import { IPost } from "../types";
-import { getPostDetailsUrl } from "../urls/api";
+import { PostUpdateDto } from "../types";
+import { getDetailsUrl } from "../urls/api";
 
 
-const updatePost = async (data: IPost) => {
-  const response = await axios.patch(getPostDetailsUrl(data.id), data);
+const updatePost = async (id: string, data: PostUpdateDto) => {
+  const response = await axios.patch(getDetailsUrl(id), data);
   return response.data;
 };
 
