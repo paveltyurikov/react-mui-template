@@ -1,19 +1,17 @@
 import React from "react";
-import CloseIcon from "@mui/icons-material/Close";
 import {
   DialogTitle,
   DialogTitleProps,
-  IconButton,
   IconButtonProps,
-  Theme,
+  Stack,
 } from "@mui/material";
+import IconBtnClose from "~/components/Button/IconBtnClose";
 
 
 const ICON_BTN_SX = {
-  position: "absolute",
-  right: 8,
-  top: 8,
-  color: (theme: Theme) => theme.palette.grey[500],
+  display: "inline-flex",
+  marginLeft: "auto",
+  transform: "translateX(.75rem)",
 };
 
 const DialogTitleWithClose = ({
@@ -26,10 +24,14 @@ const DialogTitleWithClose = ({
 } & DialogTitleProps) => {
   return (
     <DialogTitle {...dialogTitleProps}>
-      {children}
-      <IconButton aria-label="close" onClick={onClose} sx={ICON_BTN_SX}>
-        <CloseIcon />
-      </IconButton>
+      <Stack direction="row" alignItems="center">
+        {children}
+        <IconBtnClose
+          aria-label="close"
+          onClick={onClose}
+          sx={ICON_BTN_SX}
+        />
+      </Stack>
     </DialogTitle>
   );
 };
