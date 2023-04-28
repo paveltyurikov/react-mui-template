@@ -31,8 +31,9 @@ class ModelHandlers {
     });
   };
   create = () => {
-    return rest.post(this.apiUrl, (req, res, ctx) => {
-      const { data } = req.body;
+    return rest.post(this.apiUrl, async (req, res, ctx) => {
+      const data = await req.json();
+
       if (data.title === "test_bad_request") {
         return res(
           ctx.status(400),
@@ -59,8 +60,9 @@ class ModelHandlers {
     });
   };
   update = () => {
-    return rest.patch(this.detailUrl, (req, res, ctx) => {
-      if (req.body.title === "test_bad_request") {
+    return rest.patch(this.detailUrl, async (req, res, ctx) => {
+      const data = await req.json()
+      if (data.title === "test_bad_request") {
         return res(
           ctx.status(400),
           ctx.json({
@@ -73,7 +75,7 @@ class ModelHandlers {
         );
       }
       if (req.params.id === "test_id") {
-        return res(ctx.status(200), ctx.json(req.body));
+        return res(ctx.status(200), ctx.json(data));
       }
       const record = db.posts.update({
         where: {
@@ -81,7 +83,7 @@ class ModelHandlers {
             equals: req.params.id,
           },
         },
-        data: { ...req.body, updated: new Date() },
+        data: { ...data, updated: new Date() },
       });
       this.storeAllRecords();
       return res(ctx.status(200), ctx.json(record));
