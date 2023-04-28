@@ -21,3 +21,6 @@ export type IPostFilters = {
   title: string;
   content: string;
 };
+
+
+export type PostDetailsParams = { id: IPost["id"] }

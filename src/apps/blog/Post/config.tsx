@@ -1,10 +1,10 @@
-import HomeIcon from "@mui/icons-material/Home";
+import BookIcon from '@mui/icons-material/Book';
 import * as Yup from "yup";
 import {getListUrl} from "~/apps/blog/Post/urls/ui";
 import { createFieldConfig } from "~/components/FormRenderer/lib";
 import { ConfigType } from "~/components/FormRenderer/types";
 import PostDetailsContainer from "./components/Details/DetailsContainer";
-import PostListContainer from "./components/Table/Table";
+import PostListContainer from "./components/List/ListContainer";
 // import { VALIDATION_ERRORS } from "./text/dialog";
 import { PostCreateDto, IPostFilters  } from "./types";
 
@@ -22,7 +22,7 @@ export const POST_DETAILS_ROUTE = {
 export const POST_NAV_ITEM = {
   path: POST_ROUTE.path,
   title: "Post",
-  Icon: HomeIcon,
+  Icon: BookIcon,
 };
 
 
