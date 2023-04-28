@@ -1,18 +1,18 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import ButtonUpdatePost from "~/apps/blog/Post/components/ActionButtons/BtnUpdate";
 import useNotify from "~/hooks/useNotify";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
-import usePostDetails from "../../hooks/useGetDetails";
+import { useDetailsPost } from "../../hooks";
 import { GET_DETAILS_NOTIFY } from "../../text/notify";
 import { IPost } from "../../types";
+import ButtonUpdatePost from "../ActionButtons/BtnUpdate";
 import Details from "./Details";
 
 
 const PostDetailsContainer = () => {
   let { id: postId } = useParams<{ id: IPost["id"] }>();
   const { showErrorNotify } = useNotify();
-  const { data, isLoading } = usePostDetails(postId || "", {
+  const { data, refetch, isLoading } = useDetailsPost(postId || "", {
     enabled: Boolean(postId),
     onError: (error: any) => {
       showErrorNotify({
@@ -22,7 +22,7 @@ const PostDetailsContainer = () => {
   });
   return (
     <>
-      {data ? <ButtonUpdatePost post={data}>Edit</ButtonUpdatePost> : null}
+      {data ? <ButtonUpdatePost post={data} refetchDeps={refetch}>Edit</ButtonUpdatePost> : null}
       <Details post={data} isLoading={isLoading} />
     </>
   );

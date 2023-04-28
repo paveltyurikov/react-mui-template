@@ -1,67 +1,72 @@
-import { screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {v4 as uuid} from "uuid";
-import { IPostCreate } from "~/apps/blog/Post/types";
+import { vi } from "vitest";
+import { INCORRECT_DATA } from "~/tests/blog/Post";
 import renderWithAllProviders from "~/tests/renderWithAllProviders";
-import ButtonCreatePost from "./BtnCreate";
+import PostApi from '../../api'
+import BtnCreatePost from "./BtnCreate";
 
 
-const ui = () => <ButtonCreatePost>Add post</ButtonCreatePost>;
-
-const NEW_POST: IPostCreate = {
-  title: "Test Post",
-  content: "Test Post Content",
-};
-const fillPostForm = async (post: IPostCreate) => {
-  await userEvent.type(screen.getByLabelText(/title/i), post.title);
-  await userEvent.type(
-    screen.getByPlaceholderText(/type your post here/i),
-    post.content || ""
-  );
+const CORRECT_DATA = {
+  title: "PostTitle",
+  content: "PostContent",
 };
 
-const openFormDialog = async () => {
-  await userEvent.click(screen.getByText(/add post/i));
-};
+describe("BtnCreatePost", () => {
+  it("should render correctly", async () => {
+    renderWithAllProviders(BtnCreatePost, { children: "Create Post" });
 
-const submitForm = async () => {
-  await userEvent.click(screen.getByText(/^create$/i));
-};
-describe("ButtonCreatePost", () => {
-  it("should render correctly",async ()=>{
-    renderWithAllProviders(ui);
-    expect(screen.getByTestId('Post-create-btn')).toHaveTextContent("Add post")
-    await openFormDialog();
-    expect(screen.getByTestId('dialog-title')).toHaveTextContent('Create Post')
-    expect(screen.getByTestId('dialog-btn-cancel')).toHaveTextContent(/cancel/i)
-    expect(screen.getByTestId('dialog-btn-submit')).toHaveTextContent(/create/i)
-    expect(screen.getByTestId('dialog-btn-submit')).toHaveTextContent(/create/i)
-    expect(screen.getByLabelText(/title/i)).toBeInTheDocument()
-    expect(screen.getByPlaceholderText(/type your post here/i)).toBeInTheDocument()
-  })
-  it("should success", async () => {
-    renderWithAllProviders(ui);
-    await openFormDialog();
-    expect(screen.getByText(/^create$/i)).toBeDisabled();
-    await fillPostForm(NEW_POST);
-    expect(screen.getByText(/^create$/i)).toBeEnabled();
-    await submitForm();
-    await screen.findByText("Post created");
+    const button = await screen.getByTestId("Post-create-btn");
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveTextContent("Create Post");
+    // open dialog
+    await act(() => userEvent.click(button));
+
+    const dialogTitle = await screen.getByTestId("dialog-title");
+    const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
+    const dialogBtnCancel = await screen.getByTestId("btn-dialog-cancel");
+
+    expect(dialogTitle.textContent).toBe("Create Post");
+    expect(dialogBtnSubmit.textContent).toBe("Create");
+    expect(dialogBtnSubmit).toBeDisabled();
+    expect(dialogBtnCancel.textContent).toBe("Cancel");
+    expect(dialogBtnCancel).toBeEnabled();
   });
-  it("should show server errors", async () => {
-    renderWithAllProviders(ui);
-    await openFormDialog();
-    expect(screen.getByText(/^create$/i)).toBeDisabled();
-    await fillPostForm({ ...NEW_POST, title: "test_bad_request" });
-    expect(screen.getByText(/^create$/i)).toBeEnabled();
-    await submitForm();
-    await screen.findByText("Failed create Post");
-    expect(screen.getByText(/^create$/i)).toBeDisabled();
-    expect(
-      screen.getByText("This title has already been taken")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("Content field has validation problems")
-    ).toBeInTheDocument();
+  it("should handle submit success", async () => {
+    const createPost = vi.spyOn(PostApi, "create");
+    renderWithAllProviders(BtnCreatePost, { children: "Create Post" });
+    const button = await screen.getByTestId("Post-create-btn");
+    await act(() => userEvent.click(button));
+    const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
+    expect(dialogBtnSubmit).toBeDisabled();
+    const titleField = screen.getByLabelText("title");
+    const contentField = screen.getByPlaceholderText("Type your post here...");
+    await act(() => userEvent.type(titleField, CORRECT_DATA.title));
+    await act(() => userEvent.type(contentField, CORRECT_DATA.content));
+    expect(dialogBtnSubmit).toBeEnabled();
+    await act(() => userEvent.click(dialogBtnSubmit));
+    const notify = await screen.getByTestId("create-post-success-notify");
+    expect(notify.textContent).toBe("Post created");
+    expect(createPost).toHaveBeenCalledTimes(1)
+    expect(createPost).toHaveBeenCalledWith(CORRECT_DATA)
+  });
+  it("should handle submit error", async () => {
+    const createPost = vi.spyOn(PostApi, "create");
+    renderWithAllProviders(BtnCreatePost, { children: "Create Post" });
+    const button = await screen.getByTestId("Post-create-btn");
+    await act(() => userEvent.click(button));
+    const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
+    expect(dialogBtnSubmit).toBeDisabled();
+    const titleField = screen.getByLabelText("title");
+    const contentField = screen.getByPlaceholderText("Type your post here...");
+    await act(() => userEvent.type(titleField, INCORRECT_DATA.title));
+    await act(() => userEvent.type(contentField, INCORRECT_DATA.content));
+    expect(dialogBtnSubmit).toBeEnabled();
+    await act(() => userEvent.click(dialogBtnSubmit));
+    const notify = await screen.getByTestId("create-post-error-notify");
+    expect(notify.textContent).toBe("Failed create Post");
+    expect(createPost).toHaveBeenCalledTimes(1)
+    expect(createPost).toHaveBeenCalledWith(INCORRECT_DATA)
   });
 });

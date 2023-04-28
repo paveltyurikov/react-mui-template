@@ -1,17 +1,17 @@
 import { useCallback } from "react";
-import reactQueryClient from "~/lib/reactQueryClient";
-import getPostDetailsKey from "../queryKeys/getDetailsKey";
+import queryClient from "~/lib/reactQueryClient";
+import { QUERY_KEY } from "../config";
 import { IPost } from "../types";
 
 
-const usePostDetailsRefetch = () => {
+const useBtnDetailsRefetchPost= () => {
   return useCallback(
-    (id: IPost["id"]) =>
-      reactQueryClient.refetchQueries(getPostDetailsKey(id), {
+    (id:IPost["id"]) =>
+      queryClient.refetchQueries(QUERY_KEY.details(id), {
         exact: true,
       }),
     []
   );
 };
 
-export default usePostDetailsRefetch;
+export default useBtnDetailsRefetchPost;

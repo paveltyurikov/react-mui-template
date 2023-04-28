@@ -1,10 +1,10 @@
 import { axios } from "~/lib/axios";
-import { IPostCreate } from "../types";
-import { getPostUrl } from "../urls/api";
+import { PostCreateDto } from "../types";
+import { getListUrl } from "../urls/api";
 
 
-const createPost = async (data: IPostCreate) => {
-  const response = await axios.post(getPostUrl(), { data });
+const createPost = async (data: PostCreateDto) => {
+  const response = await axios.post(getListUrl(), data)
   return response.data;
 };
 

@@ -1,10 +1,15 @@
 import { useMutation } from "react-query";
-import createPost from "../api/create";
-import { IPostCreate } from "../types";
+import PostApi from "../api";
+import { QUERY_KEY } from "../config";
+import { PostCreateDto } from "../types";
 
 
-const usePostCreate = () => {
-  return useMutation("postCreate", (data: IPostCreate) => createPost(data));
+const useCreatePost = (options = {}) => {
+  return useMutation(
+    QUERY_KEY.create(),
+    (data: PostCreateDto) =>PostApi.create(data),
+    options
+  );
 };
 
-export default usePostCreate;
+export default useCreatePost;

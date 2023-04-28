@@ -1,8 +1,7 @@
-import { IPost } from "../types";
+import createUrl from "~/lib/createUrl";
 
+export const getListUrl = () =>
+  createUrl(["post"]);
 
-export const POST_PATH = "/post";
-
-export const getPostUrl = () => POST_PATH;
-
-export const getPostDetailsUrl = (id: IPost["id"]) => `${POST_PATH}/${id}`;
+export const getDetailsUrl = (id: string) =>
+  createUrl(["post", id]);

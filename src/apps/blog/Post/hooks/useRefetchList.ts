@@ -1,12 +1,13 @@
 import { useCallback } from "react";
-import reactQueryClient from "~/lib/reactQueryClient";
-import getListKey from "../queryKeys/getListKey";
+import queryClient from "~/lib/reactQueryClient";
+import { QUERY_KEY } from "../config";
+import { IPostFilters } from "../types";
 
 
 const useRefetchPostList = () => {
   return useCallback(
-    (filters?: any) =>
-      reactQueryClient.resetQueries(getListKey(filters), {
+    (filters: IPostFilters) =>
+      queryClient.resetQueries(QUERY_KEY.list(filters), {
         exact: false,
       }),
     []

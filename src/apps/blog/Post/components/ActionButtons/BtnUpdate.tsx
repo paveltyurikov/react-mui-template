@@ -1,93 +1,45 @@
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import {
-  Button,
-  ButtonProps,
-  Dialog,
-  DialogActions,
-  DialogContent,
-} from "@mui/material";
-import { Form, Formik, FormikHelpers } from "formik";
-import DialogTitleWithClose from "~/components/Dialog/DialogTitleWithClose";
-import SubmitButton from "~/components/Form/SubmitButton";
-import useNotify from "~/hooks/useNotify";
-import useVisibility from "~/hooks/useVisibility";
-import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
-import usePostsRefetchList from "../../hooks/useRefetchList";
-import usePostUpdate from "../../hooks/useUpdate";
-import { UPDATE_DIALOG } from "../../text/dialog";
-import { UPDATE_NOTIFY } from "../../text/notify";
+import { Button, ButtonProps } from "@mui/material";
+import { Formik } from "formik";
+import DialogWithConfig from "~/components/Dialog/DialogWithConfig";
+import { useBtnUpdatePost } from "../../hooks";
+import { processResponseErrors } from "../../lib";
 import { IPost } from "../../types";
-import { VALIDATION_SCHEMA } from "../Form/config";
-import { processResponseErrors } from "../Form/lib";
 import RenderFields from "../Form/RenderFields";
 
 
-const ButtonUpdatePost: React.FC<
-  ButtonProps & {
-    post: IPost;
-  }
-> = ({ post, children, ...btnProps }) => {
-  const { showSuccessNotify, showErrorNotify } = useNotify();
-  const { visibility, hide, show } = useVisibility();
-  const { mutate: updatePost } = usePostUpdate();
-  const refetchPostsList = usePostsRefetchList();
+export type BtnUpdatePostProps = ButtonProps & {
+  post: IPost;
+  refetchDeps?: () => void;
+};
 
-  const handleUpdate = React.useCallback(
-    (formData: IPost, actions: FormikHelpers<IPost>) => {
-      updatePost(formData, {
-        onSuccess: () => {
-          refetchPostsList();
-          actions.setSubmitting(false);
-          hide();
-          showSuccessNotify({ message: UPDATE_NOTIFY.success });
-        },
-        onError: (error: any) => {
-          processResponseErrors(error, actions);
-          actions.setSubmitting(false);
-          showErrorNotify({
-            message: getNotifyErrorMessage(error, UPDATE_NOTIFY.error),
-          });
-        },
-      });
-    },
-    [hide, refetchPostsList, showErrorNotify, showSuccessNotify, updatePost]
-  );
+const ButtonUpdatePost = ({
+  post,
+  refetchDeps,
+  ...btnProps
+}: BtnUpdatePostProps) => {
+  const { visibility, FORMIK_PROPS, DIALOG_PROPS } = useBtnUpdatePost({
+    post,
+    processResponseErrors,
+    refetchDeps,
+  });
   return (
     <>
       <Button
         data-testid="Post-update-btn"
         startIcon={<EditIcon />}
-        size="small"
-        color="primary"
         {...btnProps}
-        onClick={show}
-      >
-        {children}
-      </Button>
-      <Formik
-        initialValues={post}
-        validationSchema={VALIDATION_SCHEMA}
-        onSubmit={handleUpdate}
-      >
-        <Form>
-          <Dialog open={visibility} fullWidth>
-            <DialogTitleWithClose data-testid="dialog-title" onClose={hide}>
-              {UPDATE_DIALOG.title}
-            </DialogTitleWithClose>
-            <DialogContent>
-              <RenderFields />
-            </DialogContent>
-            <DialogActions>
-              <Button data-testid="dialog-btn-cancel" onClick={hide}>
-                {UPDATE_DIALOG.buttons.cancel}
-              </Button>
-              <SubmitButton data-testid="dialog-btn-submit">
-                {UPDATE_DIALOG.buttons.submit}
-              </SubmitButton>
-            </DialogActions>
-          </Dialog>
-        </Form>
+        onClick={visibility.show}
+      />
+      <Formik {...FORMIK_PROPS}>
+        <DialogWithConfig
+          config={DIALOG_PROPS}
+          onClose={visibility.hide}
+          open={visibility.visibility}
+        >
+          <RenderFields />
+        </DialogWithConfig>
       </Formik>
     </>
   );

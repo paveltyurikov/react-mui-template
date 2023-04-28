@@ -1,62 +1,72 @@
-import { screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { IPost } from "~/apps/blog/Post/types";
+import { vi } from "vitest";
+import { NON_EXISTING_POST_ID } from "~/tests/blog/Post";
 import renderWithAllProviders from "~/tests/renderWithAllProviders";
-import ButtonBtnDelete from "./BtnDelete";
+import PostApi from "../../api";
+import BtnDeletePost from "./BtnDelete";
 
 
-const NEW_POST: IPost = {
-  id: "test_id",
-  title: "Test Post",
-  content: "Test Post Content",
+const EXISTING_POST = {
+  id: "test-uuid",
+  title: "ExistingPostTitle",
+  content: "ExistingPostContent",
 };
 
-const ui = (post=NEW_POST) => (
-  <ButtonBtnDelete post={post}>Delete Post</ButtonBtnDelete>
-);
-
-const fillPostForm = async (post: IPost) => {
-  await userEvent.clear(screen.getByLabelText(/title/i));
-  await userEvent.type(screen.getByLabelText(/title/i), post.title);
-  await userEvent.type(
-    screen.getByPlaceholderText(/type your post here/i),
-    post.content || ""
-  );
-};
-const openFormDialog = async () => {
-  await userEvent.click(screen.getByText(/Delete Post/i));
-};
-
-const submitForm = async () => {
-  await userEvent.click(screen.getByText(/^Delete$/i));
-};
-describe("ButtonDeletePost", () => {
+describe("BtnDeletePost", () => {
   it("should render correctly", async () => {
-    renderWithAllProviders(ui);
-    expect(screen.getByTestId("Post-delete-btn")).toHaveTextContent(
-      "Delete Post"
-    );
-    await openFormDialog();
-    expect(screen.getByTestId("dialog-title")).toHaveTextContent("Delete Post?");
-    expect(screen.getByTestId("dialog-btn-cancel")).toHaveTextContent(
-      /cancel/i
-    );
-    expect(screen.getByTestId("dialog-btn-submit")).toHaveTextContent(
-      /Delete/i
-    );
+    renderWithAllProviders(BtnDeletePost, {
+      children: "Delete Post",
+      post: EXISTING_POST,
+    });
+
+    const button = await screen.getByTestId("Post-delete-btn");
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveTextContent("Delete Post");
+    // open dialog
+    await act(() => userEvent.click(button));
+
+    const dialogTitle = await screen.getByTestId("dialog-title");
+    const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
+    const dialogBtnCancel = await screen.getByTestId("dialog-btn-cancel");
+
+    expect(dialogTitle.textContent).toBe("Delete Post?");
+    expect(dialogBtnSubmit.textContent).toBe("Delete");
+    expect(dialogBtnCancel.textContent).toBe("Cancel");
+    expect(dialogBtnSubmit).toBeEnabled();
+    expect(dialogBtnCancel).toBeEnabled();
   });
-  it("should success", async () => {
-    renderWithAllProviders(ui);
-    await openFormDialog();
-    expect(screen.getByText(/^delete$/i)).toBeEnabled();
-    await submitForm();
-    await screen.findByText("Post deleted");
+  it("should handle submit success", async () => {
+    const updatePost = vi.spyOn(PostApi, "delete");
+    renderWithAllProviders(BtnDeletePost, {
+      children: "Delete Post",
+      post: EXISTING_POST,
+    });
+    const button = await screen.getByTestId("Post-delete-btn");
+    await act(() => userEvent.click(button));
+    const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
+    expect(dialogBtnSubmit).toBeEnabled();
+    await act(() => userEvent.click(dialogBtnSubmit));
+    const notify = await screen.getByTestId("delete-post-success-notify");
+    expect(notify.textContent).toBe("Post deleted");
+    expect(updatePost).toHaveBeenCalledTimes(1);
+    expect(updatePost).toHaveBeenCalledWith(EXISTING_POST.id);
   });
-  it("should show server errors", async () => {
-    renderWithAllProviders(ui, {...NEW_POST, id:'non_existing'});
-    await openFormDialog();
-    expect(screen.getByText(/^Delete$/i)).toBeEnabled();
-    await submitForm();
-    await screen.findByText("Failed delete Post");
+  it("should handle submit error", async () => {
+    const updatePost = vi.spyOn(PostApi, "delete");
+    renderWithAllProviders(BtnDeletePost, {
+      children: "Delete Post",
+      post: { ...EXISTING_POST, id: NON_EXISTING_POST_ID },
+    });
+    const button = await screen.getByTestId("Post-delete-btn");
+    await act(() => userEvent.click(button));
+    const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
+    expect(dialogBtnSubmit).toBeEnabled();
+    await act(() => userEvent.click(dialogBtnSubmit));
+    const notify = await screen.getByTestId("delete-post-error-notify");
+    expect(notify.textContent).toBe("Failed delete Post");
+    expect(updatePost).toHaveBeenCalledTimes(1);
+    expect(updatePost).toHaveBeenCalledWith(NON_EXISTING_POST_ID);
   });
 });
