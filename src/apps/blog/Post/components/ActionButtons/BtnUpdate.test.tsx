@@ -1,7 +1,7 @@
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-import { INCORRECT_DATA } from "~/tests/blog/Post";
+import { INCORRECT_DATA } from "~/tests/blog/post";
 import renderWithAllProviders from "~/tests/renderWithAllProviders";
 import PostApi from "../../api";
 import BtnUpdatePost from "./BtnUpdate";
