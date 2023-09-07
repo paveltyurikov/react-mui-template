@@ -1,16 +1,16 @@
-import { createTheme } from "@mui/material/styles";
-import defaultTheme from "~/constants/defaultTheme";
+import { createTheme, Theme } from "@mui/material/styles";
 
 
-export const IconBtnMenuToggleTheme = createTheme(defaultTheme, {
-  components: {
-    MuiMenu: {
-      defaultProps: {
-        transformOrigin: { horizontal: "right", vertical: "top" },
-        anchorOrigin: { horizontal: "right", vertical: "bottom" },
+export const iconBtnMenuToggleTheme = (theme: Theme) =>
+  createTheme(theme, {
+    components: {
+      MuiMenu: {
+        defaultProps: {
+          transformOrigin: { horizontal: "right", vertical: "top" },
+          anchorOrigin: { horizontal: "right", vertical: "bottom" },
+        },
       },
     },
-  },
-});
+  });
 
-export default IconBtnMenuToggleTheme;
+export default iconBtnMenuToggleTheme;

@@ -2,17 +2,18 @@ import React, { useRef } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { IconButton, Menu, ThemeProvider } from "@mui/material";
 import useVisibility from "~/hooks/useVisibility";
-import IconBtnMenuToggleTheme from "./IconBtnMenuToggle.theme";
+import iconBtnMenuToggleTheme from "./IconBtnMenuToggle.theme";
 
 
 export type BtnMenuToggleProps = {
   children: React.ReactNode;
 };
+
 const IconBtnMenuToggle = ({ children }: BtnMenuToggleProps) => {
   const ref = useRef<HTMLButtonElement>(null);
   const { visibility, toggle, hide } = useVisibility();
   return (
-    <ThemeProvider theme={IconBtnMenuToggleTheme}>
+    <ThemeProvider theme={iconBtnMenuToggleTheme}>
       <IconButton ref={ref} onClick={toggle}>
         <MoreVertIcon />
       </IconButton>
