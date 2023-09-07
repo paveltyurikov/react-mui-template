@@ -25,7 +25,11 @@ const DialogWithConfig = ({
   ...dialogProps
 }: DialogWithFormProps) => {
   return (
-    <Dialog onClose={onClose} {...dialogProps}>
+    <Dialog
+      onClose={onClose}
+      {...dialogProps}
+      PaperProps={{ sx: { minWidth: { xs: 300, sm: 480, md: 640 } } }}
+    >
       <DialogTitleWithClose data-testid="dialog-title" onClose={onClose}>
         {config.title}
       </DialogTitleWithClose>

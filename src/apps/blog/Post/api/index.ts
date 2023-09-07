@@ -4,6 +4,7 @@ import getPostDetails from './details'
 import getPostList from './list'
 import updatePost from './update'
 
+
 const PostApi = {
   create: createPost,
   delete: deletePost,

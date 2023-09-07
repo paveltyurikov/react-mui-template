@@ -14,7 +14,7 @@ const Link = React.forwardRef<
   ...linkProps
 }, ref) => {
   return (
-    <MuiLink component={RouterLink} to={to} {...linkProps}>
+    <MuiLink  {...linkProps} component={RouterLink} to={to}>
       {children}
     </MuiLink>
   );

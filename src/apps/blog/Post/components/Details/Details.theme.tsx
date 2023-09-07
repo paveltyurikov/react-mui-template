@@ -1,7 +1,7 @@
 import { createTheme, Theme } from "@mui/material/styles";
 
 
-export const iconBtnMenuToggleTheme = (theme: Theme) =>
+export const postDetailsTheme = (theme: Theme) =>
   createTheme(theme, {
     components: {
       MuiMenu: {
@@ -13,4 +13,4 @@ export const iconBtnMenuToggleTheme = (theme: Theme) =>
     },
   });
 
-export default iconBtnMenuToggleTheme;
+export default postDetailsTheme;

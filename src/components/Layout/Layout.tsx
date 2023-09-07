@@ -1,7 +1,10 @@
-import { Box, Container } from "@mui/material";
+import { Container, Stack, TextField, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import Header from "~/components/Layout/Header/Header";
-import Navigation from "~/components/Layout/Navigation/Navigation";
+import Footer from "./Footer";
+import Header from "./Header";
+import Main from "./Main";
+import Navigation from "./Navigation/Navigation";
+import ThemeSwitch from "./ThemeSwitch";
 
 
 const Layout = () => {
@@ -9,14 +12,39 @@ const Layout = () => {
     <>
       <Header>
         <Container>
-          <Navigation />
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{
+              padding: (theme) => ({
+                xs: theme.spacing(1.25, 0),
+                md: theme.spacing(2, 0, 1),
+              }),
+            }}
+          >
+            <Navigation />
+            <Stack direction="row">
+              <TextField
+                size="small"
+                placeholder="search..."
+                sx={{ marginRight: 2 }}
+              />
+              <ThemeSwitch />
+            </Stack>
+          </Stack>
         </Container>
       </Header>
-      <Box component="main">
+      <Main>
         <Container>
           <Outlet />
         </Container>
-      </Box>
+      </Main>
+      <Footer>
+        <Container>
+          <Typography>Pavel Tyurikov 2023</Typography>
+        </Container>
+      </Footer>
     </>
   );
 };

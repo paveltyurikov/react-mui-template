@@ -1,20 +1,24 @@
 import React from "react";
-import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import DEFAULT_THEME from "~/constants/defaultTheme";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import { ThemeModeContext } from "./context";
+import { useDefaultTheme } from "./hooks";
 
 
-const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export type ThemeProviderProps = {
+  children: React.ReactNode;
+};
+
+const ThemeProvider = ({ children }: ThemeProviderProps) => {
+  const { theme, toggleMode, mode } = useDefaultTheme();
   return (
-    <MuiThemeProvider theme={DEFAULT_THEME}>
-      <CssBaseline />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <ThemeModeContext.Provider value={{ mode, toggleMode }}>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         {children}
-      </LocalizationProvider>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
+    </ThemeModeContext.Provider>
   );
 };
+
 export default ThemeProvider;
