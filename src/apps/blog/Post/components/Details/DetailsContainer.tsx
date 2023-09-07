@@ -1,6 +1,7 @@
 import React from "react";
-import { Container } from "@mui/material";
+import {Container, Stack, ThemeProvider} from "@mui/material";
 import { useParams } from "react-router-dom";
+import postDetailsTheme from "~/apps/blog/Post/components/Details/Details.theme";
 import { IconBtnBack } from "~/components/Button";
 import useNotify from "~/hooks/useNotify";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
@@ -25,20 +26,22 @@ const PostDetailsContainer = () => {
     },
   });
   return (
-    <Container>
-      <IconBtnBack onClick={navigateToList} />{" "}
-      {data ? (
-        <>
-          <ButtonUpdatePost post={data} refetchDeps={refetch}>
-            Edit
-          </ButtonUpdatePost>{" "}
-          <BtnDeletePost post={data} refetchDeps={navigateToList}>
-            Delete
-          </BtnDeletePost>
-        </>
-      ) : null}
+    <ThemeProvider theme={postDetailsTheme}>
+      <Stack direction="row" spacing={1.5}>
+        <IconBtnBack size="small" color="inherit" onClick={navigateToList} />{" "}
+        {data ? (
+          <>
+            <ButtonUpdatePost post={data} color="inherit" refetchDeps={refetch}>
+              Edit
+            </ButtonUpdatePost>
+            <BtnDeletePost post={data} color="inherit"  refetchDeps={navigateToList}>
+              Delete
+            </BtnDeletePost>
+          </>
+        ) : null}
+      </Stack>
       <Details post={data} isLoading={isLoading} />
-    </Container>
+    </ThemeProvider>
   );
 };
 

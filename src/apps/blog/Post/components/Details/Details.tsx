@@ -19,6 +19,7 @@ const Details: React.FC<{ post?: IPost; isLoading: boolean }> = ({
       </Typography>
       <Typography
         component="div"
+        variant="body2"
         sx={{ margin: (theme) => theme.spacing(4, 0) }}
       >
         {post.content}

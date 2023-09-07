@@ -10,18 +10,7 @@ const RenderFields = () => {
     <FormContainer>
       <FormRow>
         <FormCol xs>
-          <Field label="title" name="title" component={TextField} fullWidth />
-        </FormCol>
-      </FormRow>
-      <FormRow>
-        <FormCol xs={6}>
-          <Field
-            label="published"
-            name="created"
-            component={TextField}
-            fullWidth
-            disabled
-          />
+          <Field label="title" name="title" component={TextField} variant="standard" fullWidth />
         </FormCol>
       </FormRow>
       <FormCol xs sx={POST_CONTENT_FIELD_CONFIG.colSx}>
@@ -29,6 +18,7 @@ const RenderFields = () => {
           placeholder="Type your post here..."
           id="content"
           name="content"
+          variant="standard"
           component={TextField}
           InputProps={POST_CONTENT_FIELD_CONFIG.InputProps}
           fullWidth

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import { AxiosError } from "axios";
 import useNotify from "~/hooks/useNotify";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
@@ -8,6 +8,7 @@ import { GET_LIST_NOTIFY } from "../../text/notify";
 import { IPost } from "../../types";
 import BtnCreatePost from "../ActionButtons/BtnCreate";
 import PostList from "./List";
+import { postListTheme } from "./List.theme";
 
 
 const PostListContainer: React.FC<{ filters?: any }> = ({ filters = {} }) => {
@@ -25,10 +26,12 @@ const PostListContainer: React.FC<{ filters?: any }> = ({ filters = {} }) => {
   });
 
   return (
-    <Container>
-      <BtnCreatePost refetchDeps={refetch} />
+    <ThemeProvider theme={postListTheme}>
+      <Box sx={{ padding: (theme) => theme.spacing(1.5, 0) }}>
+        <BtnCreatePost size="large" refetchDeps={refetch} />
+      </Box>
       <PostList isLoading={isLoading} posts={data} />
-    </Container>
+    </ThemeProvider>
   );
 };
 

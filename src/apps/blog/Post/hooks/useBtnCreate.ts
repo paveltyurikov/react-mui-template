@@ -43,7 +43,7 @@ const useBtnCreatePost = ({
     DIALOG_PROPS: CREATE_DIALOG,
     FORMIK_PROPS: {
       initialValues: INITIAL_VALUES,
-      validationPost: VALIDATION_SCHEMA,
+      validationSchema: VALIDATION_SCHEMA.create,
       onSubmit: React.useCallback(
         (formData: PostCreateDto, actions: FormikHelpers<PostCreateDto>) => {
           createPost(formData, {

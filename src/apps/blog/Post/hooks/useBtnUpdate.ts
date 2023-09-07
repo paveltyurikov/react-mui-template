@@ -46,7 +46,7 @@ const useBtnUpdatePost = ({
     DIALOG_PROPS: UPDATE_DIALOG,
     FORMIK_PROPS: {
       initialValues: post,
-      validationPost: VALIDATION_SCHEMA,
+      validationSchema: VALIDATION_SCHEMA.update,
       onSubmit: React.useCallback(
         (formData: IPost, actions: FormikHelpers<IPost>) => {
           updatePost(formData, {
