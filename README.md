@@ -1,6 +1,6 @@
 # React MaterialUI application template
 
-The project scaffolding for production ready ReactJS application with
+The project scaffolding for production-ready ReactJS application with
 
 - [material ui](https://mui.com) as components framework
 - [react-router](https://reactrouter.com) for in app routing

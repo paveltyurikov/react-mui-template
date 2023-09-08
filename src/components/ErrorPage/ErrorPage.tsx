@@ -17,7 +17,7 @@ const ErrorPage = () => {
       }}
     >
       <Typography variant="h4">
-        {get(error, "statusText", "Opps some unknown error occur")}
+        {get(error, "statusText", "Opps, an unknown error occurs")}
       </Typography>
       <Typography variant="h6">
         {get(error, "message", "nothing to say more")}
