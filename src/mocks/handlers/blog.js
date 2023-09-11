@@ -134,11 +134,10 @@ class PostModelHandlers {
   };
 }
 
-const postModelHandlers = new PostModelHandlers({
+export const BLOG_HANDLERS = new PostModelHandlers({
   db,
   modelName: "posts",
   apiUrl: "/api/post",
   storage: new Storage(),
 }).getHandlers();
 
-export default postModelHandlers;

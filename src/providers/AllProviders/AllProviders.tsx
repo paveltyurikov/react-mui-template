@@ -1,4 +1,5 @@
 import React from "react";
+import AuthProvider from "~/apps/auth/components/AuthProvider";
 import QueryClientProvider from "../QueryClientProvider";
 import SnackbarsProvider from "../SnackbarsProvider";
 import ThemeProvider from "../ThemeProvider";
@@ -10,7 +11,9 @@ const AllProviders: React.FC<{ children: React.ReactNode }> = ({
   return (
     <ThemeProvider>
       <QueryClientProvider>
-        <SnackbarsProvider>{children}</SnackbarsProvider>
+        <SnackbarsProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </SnackbarsProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

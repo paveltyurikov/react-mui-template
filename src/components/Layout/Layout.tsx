@@ -42,7 +42,7 @@ const Layout = () => {
       </Main>
       <Footer>
         <Container>
-          <Typography>Pavel Tyurikov 2023</Typography>
+          <Typography>Demo App</Typography>
         </Container>
       </Footer>
     </>
