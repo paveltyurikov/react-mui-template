@@ -2,8 +2,6 @@ import { createTheme, Theme, ThemeOptions } from "@mui/material/styles";
 
 
 export const navigationTheme = (currentTheme: Theme) => {
-  console.log(currentTheme);
-
   return createTheme(currentTheme, {
     components: {
       MuiPaper: {

@@ -8,7 +8,6 @@ import { useThemeModeContext } from "~/providers/ThemeProvider/hooks";
 const ThemeSwitch = () => {
   const { toggleMode, mode } = useThemeModeContext();
   const handleClick = () => {
-    console.log(toggleMode);
     toggleMode();
   };
 
