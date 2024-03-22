@@ -4,8 +4,7 @@ import { useRouteError } from "react-router-dom";
 import Link from "../Link";
 
 
-const ErrorPage = () => {
-  const error: unknown = useRouteError();
+export const ErrorPage = ({ error }: { error: unknown }) => {
   return (
     <Container
       sx={{
@@ -17,10 +16,10 @@ const ErrorPage = () => {
       }}
     >
       <Typography variant="h4">
-        {get(error, "statusText", "Opps some unknown error occur")}
+        {get(error, "statusText", "Opps :( unknown error has occurred")}
       </Typography>
       <Typography variant="h6">
-        {get(error, "message", "nothing to say more")}
+        {get(error, "message", "No message")}
       </Typography>
       <Typography variant="h6">
         <Link to="/">back to home page</Link>
@@ -29,4 +28,9 @@ const ErrorPage = () => {
   );
 };
 
-export default ErrorPage;
+const ErrorPageContainer = () => {
+  const error: unknown = useRouteError();
+  return <ErrorPage error={error} />;
+};
+
+export default ErrorPageContainer;

@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { v4 as uuid } from "uuid";
 import { Storage } from "~/mocks/db";
 import { INCORRECT_DATA, NON_EXISTING_POST_ID } from "~/tests/blog/post";
@@ -15,37 +15,37 @@ class PostModelHandlers {
   }
 
   getList = () => {
-    return rest.get(this.apiUrl, (req, res, ctx) => {
+    return http.get(this.apiUrl, (req, res, ctx) => {
       const records = this.model.getAll();
-      return res(ctx.json(records));
+      return  HttpResponse.json(records)
     });
   };
   getById = () => {
-    return rest.get(this.detailUrl, (req, res, ctx) => {
+    return http.get(this.detailUrl, ({ request, params }) => {
       const record = this.model.findFirst({
         where: {
           id: {
-            equals: req.params.id,
+            equals: params.id,
           },
         },
       });
-      return res(ctx.json(record));
+      return HttpResponse.json(record);
     });
   };
   create = () => {
-    return rest.post(this.apiUrl, async (req, res, ctx) => {
-      const data = await req.json();
+    return http.post(this.apiUrl, async ({ request }) => {
+      const data = await request.json();
 
       if (data.title === INCORRECT_DATA.title) {
-        return res(
-          ctx.status(400),
-          ctx.json({
+        return HttpResponse.json(
+          {
             code: "validation_error",
             errors: {
               title: ["This title has already been taken"],
               content: "Content field has validation problems",
             },
-          })
+          },
+          { status: 400 },
         );
       }
       const now = new Date();
@@ -58,63 +58,59 @@ class PostModelHandlers {
         updated: now,
       });
       this.storeAllRecords();
-      return res(ctx.status(201), ctx.json(record));
+      return HttpResponse.json(record, { status: 201 });
     });
   };
   update = () => {
-    return rest.patch(this.detailUrl, async (req, res, ctx) => {
-      const data = await req.json();
+    return http.patch(this.detailUrl, async ({ request, params }) => {
+      const data = await request.json();
       if (data.title === INCORRECT_DATA.title) {
-        return res(
-          ctx.status(400),
-          ctx.json({
+        return HttpResponse.json(
+          {
             code: "validation_error",
             errors: {
               title: ["This title has already been taken"],
               content: "Content field has validation problems",
             },
-          })
+          },
+          { status: 400 },
         );
       }
-      if (req.params.id === "test_id") {
-        return res(ctx.status(200), ctx.json(data));
+      if (params.id === "test_id") {
+        return HttpResponse.json(data, { status: 200 });
       }
       const record = db.posts.update({
         where: {
           id: {
-            equals: req.params.id,
+            equals: params.id,
           },
         },
         data: { ...data, updated: new Date() },
       });
       this.storeAllRecords();
-      return res(ctx.status(200), ctx.json(record));
+      return HttpResponse.json(record, { status: 200 });
     });
   };
   delete = () => {
-    return rest.delete(this.detailUrl, (req, res, ctx) => {
-      if (req.params.id === NON_EXISTING_POST_ID) {
-        return res(
-          ctx.status(404),
-          ctx.json({
+    return http.delete(this.detailUrl, ({ params }) => {
+      if (params.id === NON_EXISTING_POST_ID) {
+        return HttpResponse.json({
             code: "validation_error",
             errors: {
               title: ["This title has already been taken"],
               content: "Content field has validation problems",
             },
-          })
-        );
+          }, { status: 404 })
       }
       db.posts.delete({
         where: {
           id: {
-            // @ts-ignore
-            equals: req.params.id,
+            equals: params.id,
           },
         },
       });
       this.storeAllRecords();
-      return res(ctx.status(204));
+      return HttpResponse.text(null, { status: 200 });
     });
   };
 

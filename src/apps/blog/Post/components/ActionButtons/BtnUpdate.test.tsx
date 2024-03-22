@@ -34,7 +34,7 @@ describe("BtnUpdatePost", () => {
 
     const dialogTitle = await screen.getByTestId("dialog-title");
     const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
-    const dialogBtnCancel = await screen.getByTestId("btn-dialog-cancel");
+    const dialogBtnCancel = await screen.getByTestId("dialog-btn-cancel");
 
     expect(dialogTitle.textContent).toBe("Update Post");
     expect(dialogBtnSubmit.textContent).toBe("Update");

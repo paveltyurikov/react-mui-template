@@ -18,8 +18,8 @@ export interface PostUpdateDto extends ModelBase {
 }
 
 export type IPostFilters = {
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
 };
 
 

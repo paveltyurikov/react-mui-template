@@ -1,5 +1,6 @@
 import createUrl from "~/lib/createUrl";
 
+
 export const getListUrl = () =>
   createUrl(["api", "post"]);
 

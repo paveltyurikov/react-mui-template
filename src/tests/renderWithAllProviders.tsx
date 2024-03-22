@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import AllProviders from "~/providers/AllProviders";
 
 
@@ -9,7 +10,9 @@ const renderWithProviders = (
 ) => {
   return render(
     <AllProviders>
-      <Component {...props} />
+      <MemoryRouter>
+        <Component {...props} />
+      </MemoryRouter>
     </AllProviders>,
     options
   );

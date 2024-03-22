@@ -1,6 +1,6 @@
 import React from "react";
-import { QueryClientProvider as Provider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClientProvider as Provider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { isDevEnv } from "~/lib/isEnv";
 import reactQueryClient from "~/lib/reactQueryClient";
 

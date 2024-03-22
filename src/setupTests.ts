@@ -7,8 +7,10 @@ import { server } from "./mocks/server";
 import reactQueryClient from "~/lib/reactQueryClient";
 
 
+
 beforeAll(() => {
   // Enable the mocking in tests.
+
   server.listen({ onUnhandledRequest: "error" });
 });
 
