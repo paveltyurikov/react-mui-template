@@ -25,6 +25,8 @@ git add .
 git commit -m 'Init app'
 # install packages
 npm install
+# add msw serviceWorker
+npx msw init
 # run dev
 npm run dev
 ```
