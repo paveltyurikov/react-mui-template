@@ -1,5 +1,5 @@
 import { FormikHelpers } from "formik";
-import { IPost, IPostCreate } from "~/apps/blog/Post/types";
+import { IPost, IPostCreate } from "~/apps/notes/types";
 
 
 export const processResponseErrors = (

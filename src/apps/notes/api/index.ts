@@ -1,4 +1,4 @@
-import { IPost } from "~/apps/blog/Post/types";
+import { IPost } from "~/apps/notes/types";
 import createPost from "./create";
 import deletePost from "./delete";
 import getPostDetails from "./details";

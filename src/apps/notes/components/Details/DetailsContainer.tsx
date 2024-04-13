@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "@mui/material";
+import { Container, ButtonGroup } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { IconBtnBack } from "~/components/Button";
 import useNotify from "~/hooks/useNotify";
@@ -28,14 +28,14 @@ const PostDetailsContainer = () => {
     <Container>
       <IconBtnBack onClick={navigateToList} />{" "}
       {data ? (
-        <>
+        <ButtonGroup>
           <ButtonUpdatePost post={data} refetchDeps={refetch}>
             Edit
-          </ButtonUpdatePost>{" "}
+          </ButtonUpdatePost>
           <BtnDeletePost post={data} refetchDeps={navigateToList}>
             Delete
           </BtnDeletePost>
-        </>
+        </ButtonGroup>
       ) : null}
       <Details post={data} isLoading={isLoading} />
     </Container>

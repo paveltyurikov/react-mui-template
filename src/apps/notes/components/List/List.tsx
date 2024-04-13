@@ -1,4 +1,4 @@
-import { IPost } from "~/apps/blog/Post/types";
+import { IPost } from "~/apps/notes/types";
 import PostListItem from "./ListItem";
 
 

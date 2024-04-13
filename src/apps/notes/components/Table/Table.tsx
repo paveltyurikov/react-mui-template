@@ -1,4 +1,4 @@
-import { IPostFilters } from "~/apps/blog/Post/types";
+import { IPostFilters } from "~/apps/notes/types";
 import DataTable from "~/components/DataTable";
 import useListPost from "../../hooks/useList";
 import { TABLE_COLUMNS } from "./config";

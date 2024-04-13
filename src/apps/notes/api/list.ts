@@ -1,4 +1,4 @@
-import { axios } from "~/lib/axios";
+import { axios } from "../../../lib/axios";
 import { IPostFilters } from "../types";
 import { getListUrl } from "../urls/api";
 

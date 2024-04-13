@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { IPost } from "~/apps/blog/Post/types";
+import { IPost } from "~/apps/notes/types";
 import formatDate from "~/lib/formatDate";
 
 

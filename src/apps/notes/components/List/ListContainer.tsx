@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { AxiosError } from "axios";
 import useNotify from "~/hooks/useNotify";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
@@ -25,10 +25,10 @@ const PostListContainer: React.FC<{ filters?: any }> = ({ filters = {} }) => {
   });
 
   return (
-    <Container>
+    <Box>
       <BtnCreatePost refetchDeps={refetch} />
       <PostList isLoading={isLoading} posts={data} />
-    </Container>
+    </Box>
   );
 };
 
