@@ -1,14 +1,12 @@
-import React from "react";
 import {
   ListItemIcon,
   ListItemProps,
   ListItemText,
   MenuItem,
-    ListItem
+  Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { NavigationItemType } from "~/lib/types";
-
 
 const NavigationItem = ({
   title,
@@ -18,18 +16,19 @@ const NavigationItem = ({
   onClick,
 }: NavigationItemType & ListItemProps) => {
   const navigate = useNavigate();
-  const handleClick = React.useCallback((e:any) => {
-    if (onClick) onClick(e);
-    navigate(path);
-  },[onClick]);
-
   return (
-    <ListItem dense={dense} onClick={handleClick}>
+    <MenuItem
+      dense={dense}
+      onClick={(e) => {
+        if (onClick) onClick(e);
+        navigate(path);
+      }}
+    >
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
       <ListItemText>{title}</ListItemText>
-    </ListItem>
+    </MenuItem>
   );
 };
 
