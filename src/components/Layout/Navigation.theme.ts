@@ -22,7 +22,7 @@ export const navigationTheme = (theme: Theme, isMenuOpen: boolean) => {
       },
       MuiMenuItem: {
         styleOverrides: {
-          root: ({ theme }) => ({
+          root: {
             height: "5rem",
             width: "5rem",
             display: "flex",
@@ -33,7 +33,7 @@ export const navigationTheme = (theme: Theme, isMenuOpen: boolean) => {
             justifyContent: "center",
             alignItems: "center",
             borderRadius: ".5rem",
-          }),
+          },
         },
       },
       MuiListItemText: {

@@ -1,15 +1,14 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { IPost } from "../types";
-import { getDetailsUrl } from "../urls/ui";
+import { INote } from "~/types/notes";
+import { getDetailsUrl } from "../config/ui-urls";
 
-
-const useNavigateToDetailsPost = () => {
+const useNavigateToDetailsNote = () => {
   const navigate = useNavigate();
   return useCallback(
-    (id: IPost["id"]) => navigate(getDetailsUrl(id)),
-    [navigate]
+    (id: INote["id"]) => navigate(getDetailsUrl(id)),
+    [navigate],
   );
 };
 
-export default useNavigateToDetailsPost;
+export default useNavigateToDetailsNote;

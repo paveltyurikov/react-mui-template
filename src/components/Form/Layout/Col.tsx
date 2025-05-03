@@ -1,13 +1,7 @@
-import React from "react";
 import { Grid, GridProps } from "@mui/material";
 
-
-const FormCol: React.FC<Partial<GridProps>> = ({ children, ...gridProps }) => {
-  return (
-    <Grid item {...gridProps}>
-      {children}
-    </Grid>
-  );
+const FormCol = ({ children, ...gridProps }: GridProps) => {
+  return <Grid {...gridProps}>{children}</Grid>;
 };
 
 export default FormCol;

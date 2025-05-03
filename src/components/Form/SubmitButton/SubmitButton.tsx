@@ -1,10 +1,8 @@
-import React from "react";
 import { Button, ButtonProps } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useFormikContext } from "formik";
 
-
-const SubmitButton: React.FC<ButtonProps> = (props: ButtonProps) => {
+const SubmitButton = (props: ButtonProps) => {
   const { dirty, isValid, isSubmitting, submitForm } = useFormikContext();
   const disableButton = !dirty || !isValid || isSubmitting;
 

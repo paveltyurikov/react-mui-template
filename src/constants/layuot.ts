@@ -1,2 +1,0 @@
-export const DEFAULT_FORM_ROW_SPACING = 2;
-export const DEFAULT_FORM_COLUMN_SPACING = 2;

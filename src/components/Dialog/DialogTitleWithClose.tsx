@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 import {
   DialogTitle,
   DialogTitleProps,
@@ -6,7 +6,6 @@ import {
   Stack,
 } from "@mui/material";
 import IconBtnClose from "~/components/Button/IconBtnClose";
-
 
 const ICON_BTN_SX = {
   display: "inline-flex",
@@ -20,17 +19,13 @@ const DialogTitleWithClose = ({
   ...dialogTitleProps
 }: {
   onClose: IconButtonProps["onClick"];
-  children: React.ReactNode;
+  children: ReactNode;
 } & DialogTitleProps) => {
   return (
     <DialogTitle {...dialogTitleProps}>
       <Stack direction="row" alignItems="center">
         {children}
-        <IconBtnClose
-          aria-label="close"
-          onClick={onClose}
-          sx={ICON_BTN_SX}
-        />
+        <IconBtnClose aria-label="close" onClick={onClose} sx={ICON_BTN_SX} />
       </Stack>
     </DialogTitle>
   );

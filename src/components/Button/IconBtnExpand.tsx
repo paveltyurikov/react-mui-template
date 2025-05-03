@@ -1,14 +1,13 @@
-import React from "react";
+import { forwardRef } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IconButton, IconButtonProps } from "@mui/material";
-
 
 export type BtnExpandProps = IconButtonProps & {
   expanded: boolean;
   expand: () => void;
 };
 
-const IconBtnExpand = React.forwardRef<HTMLButtonElement, BtnExpandProps>(
+const IconBtnExpand = forwardRef<HTMLButtonElement, BtnExpandProps>(
   ({ expanded, expand, ...btnProps }, ref) => {
     return (
       <IconButton ref={ref} {...btnProps} onClick={expand}>
@@ -17,7 +16,9 @@ const IconBtnExpand = React.forwardRef<HTMLButtonElement, BtnExpandProps>(
         />
       </IconButton>
     );
-  }
+  },
 );
+
+IconBtnExpand.displayName = "IconBtnExpand";
 
 export default IconBtnExpand;

@@ -4,11 +4,10 @@ import {
   POST_ROUTE,
   POST_NAV_ITEM,
   POST_DETAILS_ROUTE,
-} from "~/apps/notes/config";
+} from "~/apps/notes/routes";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import HomePage from "./components/HomePage/HomePage";
 import Layout from "./components/Layout/Layout";
-
 
 export const defaultNavigation = [
   { title: "home and address", path: "/", Icon: HomeIcon },

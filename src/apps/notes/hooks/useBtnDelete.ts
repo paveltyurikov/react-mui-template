@@ -1,30 +1,37 @@
-import React from "react";
-import useNotify from "~/hooks/useNotify";
-import useVisibility from "~/hooks/useVisibility";
+import { useCallback, useMemo } from "react";
+import { useNotify, useVisibility } from "~/hooks";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
-import { useDeletePost } from "../hooks";
-import { DELETE_DIALOG } from "../text/dialog";
-import { DELETE_NOTIFY } from "../text/notify";
-import { IPost } from "../types";
+import { useDeleteNote } from "~/react-api/notes";
+import { INote } from "~/types/notes";
+import { getDeleteDialog, getDeleteNotify } from "../config/text";
+import useTranslation from "../hooks/useTranslation";
 
-
-export type useBtnDeletePostProps = {
-  post: IPost;
+export type useBtnDeleteNoteProps = {
+  note: INote;
   refetchDeps?: () => void;
 };
 
-const useBtnDeletePost = ({ post, refetchDeps }: useBtnDeletePostProps) => {
+const useBtnDeleteNote = ({ note, refetchDeps }: useBtnDeleteNoteProps) => {
+  const { t } = useTranslation();
   const { showSuccessNotify, showErrorNotify } = useNotify();
   const visibility = useVisibility();
-  const { mutate: deletePost } = useDeletePost(post.id, {
+
+  const DELETE_NOTIFY = useMemo(() => getDeleteNotify(t), [t]);
+  const DELETE_DIALOG = useMemo(() => getDeleteDialog(t), [t]);
+
+  const { mutate: deleteNote } = useDeleteNote(note.id, {
     onSuccess: () => {
       if (refetchDeps) refetchDeps();
-      showSuccessNotify({ message: DELETE_NOTIFY.success, "data-testid": "delete-post", });
+      showSuccessNotify({
+        message: DELETE_NOTIFY.success,
+        "data-testid": "delete-note",
+      });
       visibility.hide();
     },
     onError: (error: any) => {
       showErrorNotify({
-        message: getNotifyErrorMessage(error, DELETE_NOTIFY.error), "data-testid": "delete-post",
+        message: getNotifyErrorMessage(error, DELETE_NOTIFY.error),
+        "data-testid": "delete-note",
       });
     },
   });
@@ -32,8 +39,8 @@ const useBtnDeletePost = ({ post, refetchDeps }: useBtnDeletePostProps) => {
   return {
     visibility,
     DIALOG_PROPS: DELETE_DIALOG,
-    onDelete: React.useCallback(() => deletePost(), []),
+    onDelete: useCallback(() => deleteNote(), [deleteNote]),
   };
 };
 
-export default useBtnDeletePost;
+export default useBtnDeleteNote;

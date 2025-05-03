@@ -1,26 +1,30 @@
-import React from "react";
-import { Container, ButtonGroup } from "@mui/material";
+import { useMemo } from "react";
+import { ButtonGroup, Container } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { IconBtnBack } from "~/components/Button";
-import useNotify from "~/hooks/useNotify";
+import { useNotify } from "~/hooks";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
-import { useDetailsPost, useNavigateToListPost } from "../../hooks";
-import { GET_DETAILS_NOTIFY } from "../../text/notify";
-import { PostDetailsParams } from "../../types";
-import BtnDeletePost from "../ActionButtons/BtnDelete";
-import ButtonUpdatePost from "../ActionButtons/BtnUpdate";
+import { useDetailsNote } from "~/react-api/notes";
+import { NoteDetailsParams } from "~/types/notes";
+import { getDetailsNotify } from "../../config/text";
+import { useNavigateToListNote, useTranslation } from "../../hooks";
+import BtnDeleteNote from "../ActionButtons/BtnDelete";
+import ButtonUpdateNote from "../ActionButtons/BtnUpdate";
 import Details from "./Details";
 
-
-const PostDetailsContainer = () => {
-  let { id: postId } = useParams<PostDetailsParams>();
-  const navigateToList = useNavigateToListPost();
+const NoteDetailsContainer = () => {
+  const { t } = useTranslation();
+  const { id: noteId } = useParams<NoteDetailsParams>();
+  const navigateToList = useNavigateToListNote();
   const { showErrorNotify } = useNotify();
-  const { data, refetch, isLoading } = useDetailsPost(postId || "", {
-    enabled: Boolean(postId),
+
+  const DETAILS_NOTIFY = useMemo(() => getDetailsNotify(t), [t]);
+
+  const { data, refetch } = useDetailsNote(noteId || "", {
+    enabled: Boolean(noteId),
     onError: (error: any) => {
       showErrorNotify({
-        message: getNotifyErrorMessage(error, GET_DETAILS_NOTIFY.error),
+        message: getNotifyErrorMessage(error, DETAILS_NOTIFY.error),
       });
     },
   });
@@ -29,17 +33,17 @@ const PostDetailsContainer = () => {
       <IconBtnBack onClick={navigateToList} />{" "}
       {data ? (
         <ButtonGroup>
-          <ButtonUpdatePost post={data} refetchDeps={refetch}>
+          <ButtonUpdateNote note={data} refetchDeps={refetch}>
             Edit
-          </ButtonUpdatePost>
-          <BtnDeletePost post={data} refetchDeps={navigateToList}>
+          </ButtonUpdateNote>
+          <BtnDeleteNote note={data} refetchDeps={navigateToList}>
             Delete
-          </BtnDeletePost>
+          </BtnDeleteNote>
         </ButtonGroup>
       ) : null}
-      <Details post={data} isLoading={isLoading} />
+      <Details note={data} />
     </Container>
   );
 };
 
-export default PostDetailsContainer;
+export default NoteDetailsContainer;

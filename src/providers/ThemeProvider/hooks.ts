@@ -1,37 +1,12 @@
-import React from "react";
-import {getDefaultTheme, ThemeModes} from "~/constants/defaultTheme";
-import { ThemeModeContext } from "./context";
-
-
-export const useThemeModeContext = () => {
-  const value = React.useContext(ThemeModeContext);
-  if (value === undefined) {
-    throw Error(
-      "useThemeModeContext should be used inside ThemeModeContext.Provider",
-    );
-  }
-  return value;
-};
-
-
+import { useMemo } from "react";
+import { getDefaultTheme } from "~/constants/defaultTheme";
+import { useLayoutStore } from "~/store/layout.store";
 
 export const useDefaultTheme = () => {
-  const [mode, setMode] = React.useState<ThemeModes>(ThemeModes.light);
+  const themeMode = useLayoutStore((state) => state.themeMode);
+  const toggleMode = useLayoutStore((state) => state.setMode);
 
-  const toggleMode = React.useCallback(
-    (setTo?: ThemeModes) => {
-      if (setTo === undefined) {
-        const nextMode =
-          mode === ThemeModes.light ? ThemeModes.dark : ThemeModes.light;
-        setMode(nextMode);
-      } else {
-        setMode(setTo);
-      }
-    },
-    [mode],
-  );
+  const theme = useMemo(() => getDefaultTheme(themeMode), [themeMode]);
 
-  const theme = React.useMemo(() => getDefaultTheme(mode), [mode]);
-
-  return { theme, toggleMode, mode };
-}
+  return { theme, toggleMode, themeMode };
+};

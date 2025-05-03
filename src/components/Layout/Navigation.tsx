@@ -1,15 +1,18 @@
+import { useCallback } from "react";
 import { Paper, Stack, ThemeProvider } from "@mui/material";
+import { Theme } from "@mui/material/styles";
+import { defaultNavigation } from "~/router";
+import { useLayoutStore } from "~/store/layout.store";
 import { navigationTheme } from "./Navigation.theme";
 import NavigationItem from "./NavigationItem";
-import { defaultNavigation } from "~/router";
-import { Theme } from "@mui/material/styles";
-import { useThemeModeContext } from "~/providers/ThemeProvider/hooks";
 
 const Navigation = () => {
-  const { menuAnchorEl, hideMenu } = useThemeModeContext();
+  const navPanelOpened = useLayoutStore((state) => state.navPanelOpened);
+  const setNavPanelOpened = useLayoutStore((state) => state.setNavPanelOpened);
+  const toggleNav = useCallback(() => setNavPanelOpened(), [setNavPanelOpened]);
   return (
     <ThemeProvider
-      theme={(theme: Theme) => navigationTheme(theme, Boolean(menuAnchorEl))}
+      theme={(theme: Theme) => navigationTheme(theme, navPanelOpened)}
     >
       <Paper>
         <Stack
@@ -19,7 +22,7 @@ const Navigation = () => {
           flexWrap="wrap"
           sx={{
             padding: 0.25,
-            width: { sm: Boolean(menuAnchorEl) ? "30rem" : "6.5rem" },
+            width: { sm: navPanelOpened ? "30rem" : "6.5rem" },
           }}
         >
           {defaultNavigation.map(({ path, title, Icon }) => (
@@ -28,7 +31,7 @@ const Navigation = () => {
               path={path}
               title={title}
               Icon={Icon}
-              onClick={hideMenu}
+              onClick={toggleNav}
             />
           ))}
         </Stack>

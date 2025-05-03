@@ -1,8 +1,7 @@
-import React from "react";
+import { ReactNode } from "react";
 import { Paper } from "@mui/material";
-import { useThemeModeContext } from "~/providers/ThemeProvider/hooks";
 
-export type MainProps = { children: React.ReactNode };
+export type MainProps = { children: ReactNode };
 
 const MAIN_SX = {
   display: "flex",
@@ -14,7 +13,6 @@ const MAIN_SX = {
 };
 
 const Main = ({ children }: MainProps) => {
-  const { menuAnchorEl, hideMenu } = useThemeModeContext();
   return (
     <Paper component="main" sx={MAIN_SX}>
       {children}

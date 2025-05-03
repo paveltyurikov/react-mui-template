@@ -1,33 +1,31 @@
-import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button, ButtonProps } from "@mui/material";
 import { Formik } from "formik";
 import DialogWithConfig from "~/components/Dialog/DialogWithConfig";
-import { useBtnUpdatePost } from "../../hooks";
-import { processResponseErrors } from "../../lib";
-import { IPost } from "../../types";
+import mapResponseErrorsToFormik from "~/lib/mapResponseErrorsToFormik";
+import { INote } from "~/types/notes";
+import { useBtnUpdateNote } from "../../hooks";
 import RenderFields from "../Form/RenderFields";
 
-
-export type BtnUpdatePostProps = ButtonProps & {
-  post: IPost;
+export type BtnUpdateNoteProps = ButtonProps & {
+  note: INote;
   refetchDeps?: () => void;
 };
 
-const ButtonUpdatePost = ({
-  post,
+const ButtonUpdateNote = ({
+  note,
   refetchDeps,
   ...btnProps
-}: BtnUpdatePostProps) => {
-  const { visibility, FORMIK_PROPS, DIALOG_PROPS } = useBtnUpdatePost({
-    post,
-    processResponseErrors,
+}: BtnUpdateNoteProps) => {
+  const { visibility, FORMIK_PROPS, DIALOG_PROPS } = useBtnUpdateNote({
+    note,
+    processResponseErrors: mapResponseErrorsToFormik,
     refetchDeps,
   });
   return (
     <>
       <Button
-        data-testid="Post-update-btn"
+        data-testid="Note-update-btn"
         startIcon={<EditIcon />}
         {...btnProps}
         onClick={visibility.show}
@@ -45,4 +43,4 @@ const ButtonUpdatePost = ({
   );
 };
 
-export default ButtonUpdatePost;
+export default ButtonUpdateNote;

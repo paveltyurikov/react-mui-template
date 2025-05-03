@@ -1,37 +1,41 @@
-import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { Button, ButtonProps } from "@mui/material";
 import { Formik } from "formik";
 import DialogWithConfig from "~/components/Dialog/DialogWithConfig";
-import { useBtnCreatePost } from "../../hooks";
-import { processResponseErrors } from "../../lib";
+import mapResponseErrorsToFormik from "~/lib/mapResponseErrorsToFormik";
+import { useBtnCreateNote } from "../../hooks";
 import RenderFields from "../Form/RenderFields";
 
-
-export type BtnCreatePostProps = ButtonProps & {
+export type BtnCreateNoteProps = ButtonProps & {
   refetchDeps?: () => void;
 };
-//yo
 
-const BtnCreatePost = ({ refetchDeps, ...props }: BtnCreatePostProps) => {
+const BtnCreateNote = ({ refetchDeps, ...props }: BtnCreateNoteProps) => {
   const {
     DIALOG_PROPS,
     visibility: { visibility, show, hide },
     FORMIK_PROPS,
-  } = useBtnCreatePost({ processResponseErrors, refetchDeps });
+  } = useBtnCreateNote({
+    processResponseErrors: mapResponseErrorsToFormik,
+    refetchDeps,
+  });
   return (
     <>
       <Button
-        data-testid="Post-create-btn"
+        data-testid="Note-create-btn"
         startIcon={<AddIcon />}
         {...props}
         onClick={show}
-      />
+      >
+        {DIALOG_PROPS.title}
+      </Button>
       <Formik {...FORMIK_PROPS}>
         <DialogWithConfig
           config={DIALOG_PROPS}
           onClose={hide}
           open={visibility}
+          maxWidth="md"
+          slotProps={{ paper: { sx: { minWidth: 600 } } }}
         >
           <RenderFields />
         </DialogWithConfig>
@@ -40,4 +44,4 @@ const BtnCreatePost = ({ refetchDeps, ...props }: BtnCreatePostProps) => {
   );
 };
 
-export default BtnCreatePost;
+export default BtnCreateNote;

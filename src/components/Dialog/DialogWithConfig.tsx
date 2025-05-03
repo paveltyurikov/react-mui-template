@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Button,
   Dialog,
@@ -8,7 +7,6 @@ import {
 } from "@mui/material";
 import DialogTitleWithClose from "~/components/Dialog/DialogTitleWithClose";
 import SubmitButton from "~/components/Form/SubmitButton";
-
 
 export type DialogConfig = {
   title: string;

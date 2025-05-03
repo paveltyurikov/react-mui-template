@@ -1,0 +1,60 @@
+{
+  "form": {
+    "fields": {
+      "title": {
+        "label": "Title"
+      },
+      "published": {
+        "label": "Published"
+      },
+      "content": {
+        "label": "Content"
+      }
+    }
+  },
+  "dialog": {
+    "create": {
+      "title": "Create Note",
+      "buttons": {
+        "submit": "Create Note",
+        "cancel": "Cancel"
+      }
+    },
+    "update": {
+      "title": "Update Note"
+    },
+    "delete": {
+      "title": "Delete Note?"
+    }
+  },
+  "notify": {
+    "list": {
+      "error": "Failed to fetch Notes list"
+    },
+    "details": {
+      "error": "Failed to fetch Note details"
+    },
+    "create": {
+      "success": "Note created",
+      "error": "Failed to create Note"
+    },
+    "update": {
+      "success": "Note updated",
+      "error": "Failed to update Note"
+    },
+    "delete": {
+      "success": "Note deleted",
+      "error": "Failed to delete Note"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "create": "Create",
+      "update": "Update",
+      "delete": "Delete",
+      "edit": "Edit",
+      "add": "Note"
+    },
+    "cancel": "Cancel"
+  }
+}

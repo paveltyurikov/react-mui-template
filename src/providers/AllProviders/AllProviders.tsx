@@ -1,12 +1,9 @@
-import React from "react";
+import { ReactNode } from "react";
 import QueryClientProvider from "../QueryClientProvider";
 import SnackbarsProvider from "../SnackbarsProvider";
 import ThemeProvider from "../ThemeProvider";
 
-
-const AllProviders: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const AllProviders = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeProvider>
       <QueryClientProvider>
