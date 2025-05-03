@@ -1,29 +1,28 @@
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-import { NON_EXISTING_POST_ID } from "~/tests/blog/post";
+import NotesApi from "~/client/notes";
+import { NON_EXISTING_POST_ID } from "~/tests/notes/note";
 import renderWithAllProviders from "~/tests/renderWithAllProviders";
-import PostApi from "../../api";
-import BtnDeletePost from "./BtnDelete";
-
+import BtnDeleteNote from "./BtnDelete";
 
 const EXISTING_POST = {
   id: "test-uuid",
-  title: "ExistingPostTitle",
-  content: "ExistingPostContent",
+  title: "ExistingNoteTitle",
+  content: "ExistingNoteContent",
 };
 
-describe("BtnDeletePost", () => {
+describe("BtnDeleteNote", () => {
   it("should render correctly", async () => {
-    renderWithAllProviders(BtnDeletePost, {
-      children: "Delete Post",
-      post: EXISTING_POST,
+    renderWithAllProviders(BtnDeleteNote, {
+      children: "Delete Note",
+      note: EXISTING_POST,
     });
 
-    const button = await screen.getByTestId("Post-delete-btn");
+    const button = await screen.getByTestId("Note-delete-btn");
 
     expect(button).toBeInTheDocument();
-    expect(button).toHaveTextContent("Delete Post");
+    expect(button).toHaveTextContent("Delete Note");
     // open dialog
     await act(() => userEvent.click(button));
 
@@ -31,42 +30,42 @@ describe("BtnDeletePost", () => {
     const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
     const dialogBtnCancel = await screen.getByTestId("dialog-btn-cancel");
 
-    expect(dialogTitle.textContent).toBe("Delete Post?");
+    expect(dialogTitle.textContent).toBe("Delete Note?");
     expect(dialogBtnSubmit.textContent).toBe("Delete");
     expect(dialogBtnCancel.textContent).toBe("Cancel");
     expect(dialogBtnSubmit).toBeEnabled();
     expect(dialogBtnCancel).toBeEnabled();
   });
   it("should handle submit success", async () => {
-    const updatePost = vi.spyOn(PostApi, "delete");
-    renderWithAllProviders(BtnDeletePost, {
-      children: "Delete Post",
-      post: EXISTING_POST,
+    const updateNote = vi.spyOn(NotesApi, "delete");
+    renderWithAllProviders(BtnDeleteNote, {
+      children: "Delete Note",
+      note: EXISTING_POST,
     });
-    const button = await screen.getByTestId("Post-delete-btn");
+    const button = await screen.getByTestId("Note-delete-btn");
     await act(() => userEvent.click(button));
     const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
     expect(dialogBtnSubmit).toBeEnabled();
     await act(() => userEvent.click(dialogBtnSubmit));
-    const notify = await screen.getByTestId("delete-post-success-notify");
-    expect(notify.textContent).toBe("Post deleted");
-    expect(updatePost).toHaveBeenCalledTimes(1);
-    expect(updatePost).toHaveBeenCalledWith(EXISTING_POST.id);
+    const notify = await screen.getByTestId("delete-note-success-notify");
+    expect(notify.textContent).toBe("Note deleted");
+    expect(updateNote).toHaveBeenCalledTimes(1);
+    expect(updateNote).toHaveBeenCalledWith(EXISTING_POST.id);
   });
   it("should handle submit error", async () => {
-    const updatePost = vi.spyOn(PostApi, "delete");
-    renderWithAllProviders(BtnDeletePost, {
-      children: "Delete Post",
-      post: { ...EXISTING_POST, id: NON_EXISTING_POST_ID },
+    const updateNote = vi.spyOn(NotesApi, "delete");
+    renderWithAllProviders(BtnDeleteNote, {
+      children: "Delete Note",
+      note: { ...EXISTING_POST, id: NON_EXISTING_POST_ID },
     });
-    const button = await screen.getByTestId("Post-delete-btn");
+    const button = await screen.getByTestId("Note-delete-btn");
     await act(() => userEvent.click(button));
     const dialogBtnSubmit = await screen.getByTestId("dialog-btn-submit");
     expect(dialogBtnSubmit).toBeEnabled();
     await act(() => userEvent.click(dialogBtnSubmit));
-    const notify = await screen.getByTestId("delete-post-error-notify");
-    expect(notify.textContent).toBe("Failed delete Post");
-    expect(updatePost).toHaveBeenCalledTimes(1);
-    expect(updatePost).toHaveBeenCalledWith(NON_EXISTING_POST_ID);
+    const notify = await screen.getByTestId("delete-note-error-notify");
+    expect(notify.textContent).toBe("Failed to delete Note");
+    expect(updateNote).toHaveBeenCalledTimes(1);
+    expect(updateNote).toHaveBeenCalledWith(NON_EXISTING_POST_ID);
   });
 });

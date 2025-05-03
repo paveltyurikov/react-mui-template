@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 
-
 const HomePage = () => {
   return (
     <Box component="article">
@@ -37,7 +36,7 @@ const HomePage = () => {
           </a>{" "}
           with{" "}
           <a href="https://axios-http.com/" rel="nofollow">
-            axios
+            http
           </a>{" "}
           as HTTP client
         </li>

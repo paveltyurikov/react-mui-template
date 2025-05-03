@@ -1,46 +1,53 @@
-import React from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import {
-  Button,
-  ButtonProps,
-  Dialog,
-  DialogActions,
-} from "@mui/material";
+import { Button, ButtonProps, Dialog, DialogActions } from "@mui/material";
 import DialogTitleWithClose from "~/components/Dialog/DialogTitleWithClose";
-import { useBtnDeletePost } from "../../hooks";
-import { IPost } from "../../types";
+import { INote } from "~/types/notes";
+import { useBtnDeleteNote } from "../../hooks";
 
-
-export type BtnDeletePostProps = ButtonProps & {
+export type BtnDeleteNoteProps = ButtonProps & {
   refetchDeps?: () => void;
-  post: IPost;
+  note: INote;
 };
 
-const BtnDeletePost = ({
-  post,
+const BtnDeleteNote = ({
+  note,
   refetchDeps,
   ...btnProps
-}: BtnDeletePostProps) => {
-  const { visibility, onDelete, DIALOG_PROPS } = useBtnDeletePost({
-    post,
+}: BtnDeleteNoteProps) => {
+  const { visibility, onDelete, DIALOG_PROPS } = useBtnDeleteNote({
+    note,
     refetchDeps,
   });
 
   return (
     <>
       <Button
-        data-testid="Post-delete-btn"
+        data-testid="Note-delete-btn"
         startIcon={<DeleteForeverIcon />}
         {...btnProps}
         onClick={visibility.show}
       />
-      <Dialog data-testid="dialog" open={visibility.visibility} onClose={visibility.hide}>
-        <DialogTitleWithClose data-testid="dialog-title" onClose={visibility.hide}>{DIALOG_PROPS.title}</DialogTitleWithClose>
+      <Dialog
+        data-testid="dialog"
+        open={visibility.visibility}
+        onClose={visibility.hide}
+      >
+        <DialogTitleWithClose
+          data-testid="dialog-title"
+          onClose={visibility.hide}
+        >
+          {DIALOG_PROPS.title}
+        </DialogTitleWithClose>
         <DialogActions>
           <Button data-testid="dialog-btn-cancel" onClick={visibility.hide}>
             {DIALOG_PROPS.buttons.cancel}
           </Button>
-          <Button data-testid="dialog-btn-submit" onClick={onDelete} variant="contained" color="error">
+          <Button
+            data-testid="dialog-btn-submit"
+            onClick={onDelete}
+            variant="contained"
+            color="error"
+          >
             {DIALOG_PROPS.buttons.submit}
           </Button>
         </DialogActions>
@@ -49,4 +56,4 @@ const BtnDeletePost = ({
   );
 };
 
-export default BtnDeletePost;
+export default BtnDeleteNote;

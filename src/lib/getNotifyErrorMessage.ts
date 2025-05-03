@@ -1,14 +1,13 @@
-import { AxiosError } from "axios";
 import { get } from "lodash";
 import { ERRORS_BY_HTTP_CODE } from "~/constants/errorMessagesByHttpCodes";
-
+import { ResponseError } from "~/types";
 
 const UNKNOWN_ERROR = "Unknown error";
 
 const getNotifyErrorMessage = (
-  responseError: AxiosError,
+  responseError: ResponseError,
   provided: string,
-  overrides: any = {}
+  overrides: any = {},
 ): string => {
   if (provided) return provided;
 
@@ -16,7 +15,7 @@ const getNotifyErrorMessage = (
     return get(
       { ...ERRORS_BY_HTTP_CODE, ...overrides },
       responseError?.response?.status,
-      UNKNOWN_ERROR
+      UNKNOWN_ERROR,
     );
   }
   return UNKNOWN_ERROR;

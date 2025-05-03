@@ -1,35 +1,43 @@
-import React from "react";
+import { useMemo } from "react";
 import { Box } from "@mui/material";
-import { AxiosError } from "axios";
-import useNotify from "~/hooks/useNotify";
+import { useNotify } from "~/hooks";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
-import { useListPost } from "../../hooks";
-import { GET_LIST_NOTIFY } from "../../text/notify";
-import { IPost } from "../../types";
-import BtnCreatePost from "../ActionButtons/BtnCreate";
-import PostList from "./List";
+import { useListNote } from "~/react-api/notes";
+import { ResponseError } from "~/types";
+import { INote, INoteFilters } from "~/types/notes";
+import { getListNotify } from "../../config/text";
+import { useTranslation } from "../../hooks";
+import BtnCreateNote from "../ActionButtons/BtnCreate";
+import NoteList from "./List";
 
+export type NoteListContainerProps = {
+  filters?: INoteFilters;
+};
 
-const PostListContainer: React.FC<{ filters?: any }> = ({ filters = {} }) => {
+const NoteListContainer = ({ filters = {} }: NoteListContainerProps) => {
   const { showErrorNotify } = useNotify();
+  const { t } = useTranslation();
+
+  const LIST_NOTIFY = useMemo(() => getListNotify(t), [t]);
+
   const {
     data = [],
     isLoading,
     refetch,
-  } = useListPost(filters, {
-    onError: (error: AxiosError<IPost>) => {
+  } = useListNote(filters, {
+    onError: (error: ResponseError<INote>) => {
       showErrorNotify({
-        message: getNotifyErrorMessage(error, GET_LIST_NOTIFY.error),
+        message: getNotifyErrorMessage(error, LIST_NOTIFY.error),
       });
     },
   });
 
   return (
     <Box>
-      <BtnCreatePost refetchDeps={refetch} />
-      <PostList isLoading={isLoading} posts={data} />
+      <BtnCreateNote refetchDeps={refetch} disabled={isLoading} />
+      <NoteList isLoading={isLoading} notes={data} />
     </Box>
   );
 };
 
-export default PostListContainer;
+export default NoteListContainer;

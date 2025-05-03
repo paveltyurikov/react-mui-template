@@ -1,19 +1,28 @@
 import { Box, Typography } from "@mui/material";
-import { IPost } from "~/apps/notes/types";
+import { Theme } from "@mui/material/styles";
 import Link from "~/components/Link";
 import formatDate from "~/lib/formatDate";
-import { getDetailsUrl } from "../../urls/ui";
+import { INote } from "~/types/notes";
+import { getDetailsUrl } from "../../config/ui-urls";
 
+export type NoteListItemProps = {
+  note: INote;
+};
 
-const PostListItem: React.FC<{ post: IPost }> = ({ post }) => {
+const NoteListItemSx = {
+  minWidth: "100%",
+  marginBottom: (theme: Theme) => theme.spacing(2),
+};
+
+const NoteListItem = ({ note }: NoteListItemProps) => {
   return (
-    <Box sx={{ minWidth: "100%", marginBottom: (theme) => theme.spacing(2) }}>
-      <Link to={getDetailsUrl(post.id)}>
-        <Typography variant="h4">{post.title}</Typography>
+    <Box sx={NoteListItemSx}>
+      <Link to={getDetailsUrl(note.id)}>
+        <Typography variant="h4">{note.title}</Typography>
       </Link>
-      <Typography variant="caption">{formatDate(post.published)}</Typography>
+      <Typography variant="caption">{formatDate(note.published)}</Typography>
     </Box>
   );
 };
 
-export default PostListItem;
+export default NoteListItem;

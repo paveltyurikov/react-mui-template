@@ -3,14 +3,11 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
-import { server } from "./mocks/server";
 import reactQueryClient from "~/lib/reactQueryClient";
-
-
+import { server } from "~/msw-mocks/server";
 
 beforeAll(() => {
   // Enable the mocking in tests.
-
   server.listen({ onUnhandledRequest: "error" });
 });
 

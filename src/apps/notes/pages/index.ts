@@ -1,2 +1,2 @@
-export { default as PostDetailsPage } from "./PostDetails";
-export { default as PostsListPage } from "./PostsList";
+export { default as NoteDetailsPage } from "./NoteDetails";
+export { default as NotesListPage } from "./NotesList";

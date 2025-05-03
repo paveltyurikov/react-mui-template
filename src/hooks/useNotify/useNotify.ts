@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useSnackbar } from "notistack";
 
-
 export interface IG {
   message: string;
   "data-testid"?: string;
@@ -14,23 +13,29 @@ const useNotify = () => {
       showWarningNotify: ({ message, "data-testid": dataTest }: IG) =>
         enqueueSnackbar(message, {
           variant: "warning",
-          // @ts-ignore
-          "data-testid": `${dataTest}-warning-notify`,
+          SnackbarProps: {
+            // @ts-expect-error used for tests
+            "data-testid": `${dataTest}-warning-notify`,
+          },
         }),
       showSuccessNotify: ({ message, "data-testid": dataTest }: IG) =>
         enqueueSnackbar(message, {
           variant: "success",
-          // @ts-ignore
-          "data-testid": `${dataTest}-success-notify`,
+          SnackbarProps: {
+            // @ts-expect-error used for tests
+            "data-testid": `${dataTest}-success-notify`,
+          },
         }),
       showErrorNotify: ({ message, "data-testid": dataTest }: IG) =>
         enqueueSnackbar(message, {
           variant: "error",
-          // @ts-ignore
-          "data-testid": `${dataTest}-error-notify`,
+          SnackbarProps: {
+            // @ts-expect-error used for tests
+            "data-testid": `${dataTest}-error-notify`,
+          },
         }),
     }),
-    [enqueueSnackbar]
+    [enqueueSnackbar],
   );
 };
 

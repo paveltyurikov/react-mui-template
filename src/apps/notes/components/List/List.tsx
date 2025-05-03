@@ -1,16 +1,16 @@
-import { IPost } from "~/apps/notes/types";
-import PostListItem from "./ListItem";
+import { INote } from "~/types/notes";
+import NoteListItem from "./ListItem";
 
+export type NoteListProps = { isLoading?: boolean; notes: INote[] };
 
-export type PostListProps = { isLoading?: boolean; posts: IPost[] };
-const PostList = ({ posts = [] }: PostListProps) => {
+const NoteList = ({ notes }: NoteListProps) => {
   return (
     <>
-      {posts.map((post) => (
-        <PostListItem key={post.id} post={post} />
+      {notes.map((note) => (
+        <NoteListItem key={note.id} note={note} />
       ))}
     </>
   );
 };
 
-export default PostList;
+export default NoteList;

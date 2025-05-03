@@ -1,9 +1,8 @@
-import React from "react";
+import { forwardRef } from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { IconButton, IconButtonProps } from "@mui/material";
 
-
-const IconBtnClose = React.forwardRef<
+const IconBtnClose = forwardRef<
   HTMLButtonElement,
   Exclude<IconButtonProps, "children">
 >((props, ref) => {
@@ -13,5 +12,7 @@ const IconBtnClose = React.forwardRef<
     </IconButton>
   );
 });
+
+IconBtnClose.displayName = "IconBtnClose";
 
 export default IconBtnClose;

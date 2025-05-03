@@ -3,7 +3,6 @@ import {
   ListItemProps,
   ListItemText,
   MenuItem,
-  Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { NavigationItemType } from "~/lib/types";

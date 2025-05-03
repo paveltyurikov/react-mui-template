@@ -1,31 +1,37 @@
-import React from "react";
+import { useCallback, useMemo } from "react";
 import { FormikHelpers } from "formik";
-import useNotify from "~/hooks/useNotify";
-import useVisibility from "~/hooks/useVisibility";
+import { useNotify, useVisibility } from "~/hooks";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
-import { INITIAL_VALUES, VALIDATION_SCHEMA } from "../config";
-import { useCreatePost } from "../hooks";
-import { CREATE_DIALOG } from "../text/dialog";
-import { CREATE_NOTIFY } from "../text/notify";
-import { PostCreateDto } from "../types";
+import { useCreateNote } from "~/react-api/notes";
+import { NoteCreateDto } from "~/types/notes";
+import { getValidationSchema, INITIAL_VALUES } from "../config/forms";
+import { getCreateDialog, getCreateNotify } from "../config/text";
+import { useTranslation } from "../hooks/index";
 
-
-export type useBtnCreatePostProps = {
+export type useBtnCreateNoteProps = {
   processResponseErrors?: (errors: any, actions: any) => void;
   refetchDeps?: () => void;
 };
 
-const useBtnCreatePost = ({
+const useBtnCreateNote = ({
   processResponseErrors,
   refetchDeps,
-}: useBtnCreatePostProps) => {
+}: useBtnCreateNoteProps) => {
+  const { t } = useTranslation();
   const { showErrorNotify, showSuccessNotify } = useNotify();
   const visibility = useVisibility();
-  const { mutate: createPost } = useCreatePost({
+
+  const CREATE_DIALOG = useMemo(() => getCreateDialog(t), [t]);
+
+  const CREATE_NOTIFY = useMemo(() => getCreateNotify(t), [t]);
+
+  const VALIDATION_SCHEMA = useMemo(() => getValidationSchema(t), [t]);
+
+  const { mutate: createNote } = useCreateNote({
     onSuccess: () => {
       showSuccessNotify({
         message: CREATE_NOTIFY.success,
-        "data-testid": "create-post",
+        "data-testid": "create-note",
       });
       if (refetchDeps) refetchDeps();
       visibility.hide();
@@ -33,20 +39,21 @@ const useBtnCreatePost = ({
     onError: (error: any) => {
       showErrorNotify({
         message: getNotifyErrorMessage(error, CREATE_NOTIFY.error),
-        "data-testid": "create-post"
+        "data-testid": "create-note",
       });
     },
   });
 
   return {
+    t,
     visibility,
     DIALOG_PROPS: CREATE_DIALOG,
     FORMIK_PROPS: {
       initialValues: INITIAL_VALUES,
-      validationPost: VALIDATION_SCHEMA,
-      onSubmit: React.useCallback(
-        (formData: PostCreateDto, actions: FormikHelpers<PostCreateDto>) => {
-          createPost(formData, {
+      validationNote: VALIDATION_SCHEMA,
+      onSubmit: useCallback(
+        (formData: NoteCreateDto, actions: FormikHelpers<NoteCreateDto>) => {
+          createNote(formData, {
             onSuccess: () => {
               actions.resetForm();
               actions.setSubmitting(false);
@@ -59,10 +66,10 @@ const useBtnCreatePost = ({
             },
           });
         },
-        [createPost, processResponseErrors]
+        [createNote, processResponseErrors],
       ),
     },
   };
 };
 
-export default useBtnCreatePost;
+export default useBtnCreateNote;

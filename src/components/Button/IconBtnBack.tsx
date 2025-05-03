@@ -1,9 +1,8 @@
-import React from "react";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { forwardRef } from "react";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { IconButton, IconButtonProps } from "@mui/material";
 
-
-const IconBtnAdd = React.forwardRef<
+const IconBtnAdd = forwardRef<
   HTMLButtonElement,
   Exclude<IconButtonProps, "children">
 >((props, ref) => {
@@ -13,5 +12,7 @@ const IconBtnAdd = React.forwardRef<
     </IconButton>
   );
 });
+
+IconBtnAdd.displayName = "IconBtnAdd";
 
 export default IconBtnAdd;

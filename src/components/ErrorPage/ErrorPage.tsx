@@ -3,7 +3,6 @@ import { get } from "lodash";
 import { useRouteError } from "react-router-dom";
 import Link from "../Link";
 
-
 export const ErrorPage = ({ error }: { error: unknown }) => {
   return (
     <Container
