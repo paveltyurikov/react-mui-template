@@ -5,8 +5,8 @@ import {
   DialogContent,
   DialogProps,
 } from "@mui/material";
-import DialogTitleWithClose from "~/components/Dialog/DialogTitleWithClose";
-import SubmitButton from "~/components/Form/SubmitButton";
+import DialogTitleWithClose from "~/components/dialog/DialogTitleWithClose";
+import SubmitButton from "~/components/form/SubmitButton";
 
 export type DialogConfig = {
   title: string;

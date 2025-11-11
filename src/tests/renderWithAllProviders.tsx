@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import i18n from "i18next";
 import Backend from "i18next-http-backend/cjs";
 import { I18nextProvider, initReactI18next } from "react-i18next";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { CONFIG, I18N_LANGUAGES } from "~/config";
 import { isDevEnv } from "~/lib/isEnv";
 import AllProviders from "~/providers/AllProviders";

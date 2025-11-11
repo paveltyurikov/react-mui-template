@@ -2,7 +2,7 @@ import { InputLabel, Stack } from "@mui/material";
 import { Field } from "formik";
 import { Switch, TextField } from "formik-mui";
 import useTranslation from "~/apps/notes/hooks/useTranslation";
-import { FormCol, FormContainer, FormRow } from "~/components/Form/Layout";
+import { FormCol, FormContainer, FormRow } from "~/components/form/layout";
 import { getFormFieldLabelPath } from "~/lib/i18nPath";
 import { POST_CONTENT_FIELD_CONFIG } from "./config";
 

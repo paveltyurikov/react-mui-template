@@ -1,5 +1,5 @@
 import HomeIcon from "@mui/icons-material/Home";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router";
 import {
   POST_ROUTE,
   POST_NAV_ITEM,

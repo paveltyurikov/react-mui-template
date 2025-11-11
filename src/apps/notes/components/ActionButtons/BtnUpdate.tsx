@@ -1,7 +1,7 @@
 import EditIcon from "@mui/icons-material/Edit";
 import { Button, ButtonProps } from "@mui/material";
 import { Formik } from "formik";
-import DialogWithConfig from "~/components/Dialog/DialogWithConfig";
+import DialogWithConfig from "~/components/dialog/DialogWithConfig";
 import mapResponseErrorsToFormik from "~/lib/mapResponseErrorsToFormik";
 import { INote } from "~/types/notes";
 import { useBtnUpdateNote } from "../../hooks";

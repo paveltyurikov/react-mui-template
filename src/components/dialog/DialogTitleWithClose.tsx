@@ -5,7 +5,7 @@ import {
   IconButtonProps,
   Stack,
 } from "@mui/material";
-import IconBtnClose from "~/components/Button/IconBtnClose";
+import IconBtnClose from "~/components/buttons/IconBtnClose";
 
 const ICON_BTN_SX = {
   display: "inline-flex",

@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { INote } from "~/types/notes";
 import { getDetailsUrl } from "../config/ui-urls";
 
