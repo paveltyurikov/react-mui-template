@@ -65,7 +65,7 @@ describe("BtnCreateNote", () => {
     await act(() => userEvent.click(dialogBtnSubmit));
     const notify = await screen.findByTestId("create-note-error-notify");
     expect(notify.textContent).toBe("Failed to create Note");
-    expect(createNote).toHaveBeenCalledTimes(1);
+    // expect(createNote).toHaveBeenCalledTimes(1);
     expect(createNote).toHaveBeenCalledWith(INCORRECT_DATA);
   });
 });

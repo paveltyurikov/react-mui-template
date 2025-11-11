@@ -1,5 +1,5 @@
 import { Stack, Toolbar } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import BtnToggleNav from "~/components/Layout/BtnToggleNav";
 import Header from "~/components/Layout/Header";
 import Main from "~/components/Layout/Main";

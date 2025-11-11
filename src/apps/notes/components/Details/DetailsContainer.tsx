@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { ButtonGroup, Container } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { IconBtnBack } from "~/components/Button";
+import { useParams } from "react-router";
+import { IconBtnBack } from "~/components/buttons";
 import { useNotify } from "~/hooks";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 import { useDetailsNote } from "~/react-api/notes";
