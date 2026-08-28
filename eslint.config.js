@@ -4,7 +4,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import { defineConfig, globalIgnores } from "eslint/config";
-import importPlugin from "eslint-plugin-import";
+import perfectionist from "eslint-plugin-perfectionist";
 
 export default defineConfig([
   globalIgnores(["dist"]),
@@ -13,60 +13,49 @@ export default defineConfig([
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooks.configs["recommended-latest"],
+      reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
-      importPlugin.flatConfigs.recommended,
     ],
     languageOptions: {
-      ecmaVersion: 2020,
       globals: globals.browser,
     },
+    plugins: { perfectionist },
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
-      "import/extensions": [
-        "error",
-        "never",
-        {
-          json: "always",
-          css: "always",
-        },
-      ],
-      "import/order": [
+      "perfectionist/sort-objects": "off",
+      "perfectionist/sort-imports": [
         "error",
         {
+          type: "alphabetical",
+          order: "asc",
+          ignoreCase: true,
           groups: [
-            "external",
+            "type",
+            "react",
             "builtin",
+            "external",
             "internal",
             "parent",
             "sibling",
             "index",
+            "side-effect",
+            "style",
+            "unknown",
           ],
-          pathGroups: [
+          customGroups: [
             {
-              pattern: "react",
-              group: "external",
-              position: "before",
+              groupName: "type-react",
+              elementNamePattern: ["^react$", "^react-.*"],
+              selector: "type",
+            },
+            {
+              groupName: "react",
+              elementNamePattern: ["^react$", "^react-.*"],
             },
           ],
-          pathGroupsExcludedImportTypes: ["react"],
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true,
-          },
+          newlinesBetween: 1,
         },
       ],
-      "import/newline-after-import": [
-        "error",
-        {
-          count: 1,
-        },
-      ],
-    },
-    settings: {
-      "import/resolver": {
-        typescript: {},
-      },
     },
   },
 ]);
