@@ -2,6 +2,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
+
 import NavigationItem from "./NavigationItem";
 
 const onClick = vi.fn();

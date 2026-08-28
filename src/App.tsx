@@ -1,4 +1,5 @@
 import { RouterProvider } from "react-router";
+
 import AllProviders from "./providers/AllProviders";
 import defaultRouter from "./router";
 

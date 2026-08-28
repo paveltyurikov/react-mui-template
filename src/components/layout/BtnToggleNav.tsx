@@ -1,7 +1,9 @@
 import { useCallback, useMemo } from "react";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
+
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { IconButton } from "@mui/material";
+
 import { useLayoutStore } from "~/store/layout.store";
 
 const BtnToggleNav = () => {
@@ -9,7 +11,7 @@ const BtnToggleNav = () => {
   const setNavPanelOpened = useLayoutStore((state) => state.setNavPanelOpened);
 
   const Icon = useMemo(
-    () => (navPanelOpened ? HighlightOffIcon : WidgetsOutlinedIcon),
+    () => (navPanelOpened ? MenuOpenIcon : MenuIcon ),
     [navPanelOpened],
   );
 

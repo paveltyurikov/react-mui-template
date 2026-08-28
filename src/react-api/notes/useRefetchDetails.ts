@@ -1,6 +1,8 @@
 import { useCallback } from "react";
+
 import queryClient from "~/lib/reactQueryClient";
 import { INote } from "~/types/notes";
+
 import { QUERY_KEYS } from "./config";
 
 const useBtnDetailsRefetchNote = () => {

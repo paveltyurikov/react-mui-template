@@ -1,9 +1,10 @@
 import { forwardRef } from "react";
-import { Link as MuiLink, LinkProps as MuiLinkProps } from "@mui/material";
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
 } from "react-router";
+
+import { Link as MuiLink, LinkProps as MuiLinkProps } from "@mui/material";
 
 export type LinkProps = MuiLinkProps & RouterLinkProps;
 

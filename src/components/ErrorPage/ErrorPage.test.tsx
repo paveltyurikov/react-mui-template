@@ -1,5 +1,7 @@
 import { screen } from "@testing-library/react";
+
 import renderWithAllProviders from "~/tests/renderWithAllProviders";
+
 import { ErrorPage } from "./ErrorPage";
 
 describe("ErrorPage", () => {

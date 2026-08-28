@@ -1,5 +1,6 @@
 import { httpClient } from "~/lib/http";
 import { INote } from "~/types/notes";
+
 import { getDetailsUrl } from "./config";
 
 const getNoteDetails = async (id: INote["id"]): Promise<INote> => {

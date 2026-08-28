@@ -1,9 +1,11 @@
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
+
 import NotesApi from "~/client/notes";
 import { NON_EXISTING_POST_ID } from "~/tests/notes/note";
 import renderWithAllProviders from "~/tests/renderWithAllProviders";
+
 import BtnDeleteNote from "./BtnDelete";
 
 const EXISTING_POST = {

@@ -1,6 +1,8 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
+
 import { INote } from "~/types/notes";
+
 import { getDetailsUrl } from "../config/ui-urls";
 
 const useNavigateToDetailsNote = () => {

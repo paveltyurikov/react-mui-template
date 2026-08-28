@@ -1,8 +1,10 @@
+import { initReactI18next } from "react-i18next";
+
 import dayjs from "dayjs";
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import Backend from "i18next-http-backend";
-import { initReactI18next } from "react-i18next";
+
 import { CONFIG, I18N_LANGUAGES, LOCALES_PATH } from "~/config";
 import { isDevEnv } from "~/lib/isEnv";
 

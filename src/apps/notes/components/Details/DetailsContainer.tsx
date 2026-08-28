@@ -1,15 +1,19 @@
 import { useMemo } from "react";
-import { ButtonGroup, Container } from "@mui/material";
 import { useParams } from "react-router";
+
+import { ButtonGroup, Container } from "@mui/material";
+
 import { IconBtnBack } from "~/components/buttons";
 import { useNotify } from "~/hooks";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 import { useDetailsNote } from "~/react-api/notes";
 import { NoteDetailsParams } from "~/types/notes";
+
 import { getDetailsNotify } from "../../config/text";
 import { useNavigateToListNote, useTranslation } from "../../hooks";
 import BtnDeleteNote from "../ActionButtons/BtnDelete";
 import ButtonUpdateNote from "../ActionButtons/BtnUpdate";
+
 import Details from "./Details";
 
 const NoteDetailsContainer = () => {
