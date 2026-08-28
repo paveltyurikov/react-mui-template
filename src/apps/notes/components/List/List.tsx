@@ -1,4 +1,5 @@
 import { INote } from "~/types/notes";
+
 import NoteListItem from "./ListItem";
 
 export type NoteListProps = { isLoading?: boolean; notes: INote[] };

@@ -1,6 +1,8 @@
 import { useCallback } from "react";
+
 import queryClient from "~/lib/reactQueryClient";
 import { INoteFilters } from "~/types/notes";
+
 import { QUERY_KEYS } from "./config";
 
 const useRefetchNoteList = () => {

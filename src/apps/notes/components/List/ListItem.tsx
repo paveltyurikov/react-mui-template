@@ -1,8 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { Theme } from "@mui/material/styles";
+
 import Link from "~/components/Link";
 import formatDate from "~/lib/formatDate";
 import { INote } from "~/types/notes";
+
 import { getDetailsUrl } from "../../config/ui-urls";
 
 export type NoteListItemProps = {

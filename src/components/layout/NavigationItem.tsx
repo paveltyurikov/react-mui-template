@@ -1,11 +1,13 @@
+import { useNavigate } from "react-router";
+
 import {
+  ListItem,
   ListItemIcon,
   ListItemProps,
   ListItemText,
-  MenuItem,
 } from "@mui/material";
-import { useNavigate } from "react-router";
-import { NavigationItemType } from "~/lib/types";
+
+import { type NavigationItemType } from "~/lib/types";
 
 const NavigationItem = ({
   title,
@@ -16,7 +18,7 @@ const NavigationItem = ({
 }: NavigationItemType & ListItemProps) => {
   const navigate = useNavigate();
   return (
-    <MenuItem
+    <ListItem
       dense={dense}
       onClick={(e) => {
         if (onClick) onClick(e);
@@ -27,7 +29,7 @@ const NavigationItem = ({
         <Icon />
       </ListItemIcon>
       <ListItemText>{title}</ListItemText>
-    </MenuItem>
+    </ListItem>
   );
 };
 

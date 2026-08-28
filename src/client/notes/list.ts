@@ -1,5 +1,6 @@
 import { httpClient } from "~/lib/http";
 import { INote, INoteFilters } from "~/types/notes";
+
 import { getListUrl } from "./config";
 
 const getNoteList = async (filters?: INoteFilters): Promise<INote[]> => {

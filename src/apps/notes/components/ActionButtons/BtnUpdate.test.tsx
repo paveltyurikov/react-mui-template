@@ -1,9 +1,11 @@
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
+
 import NotesApi from "~/client/notes";
 import { INCORRECT_DATA } from "~/tests/notes/note";
 import renderWithAllProviders from "~/tests/renderWithAllProviders";
+
 import BtnUpdateNote from "./BtnUpdate";
 
 const EXISTING_POST = {

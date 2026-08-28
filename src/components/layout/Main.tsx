@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+
 import { Paper } from "@mui/material";
 
 export type MainProps = { children: ReactNode };

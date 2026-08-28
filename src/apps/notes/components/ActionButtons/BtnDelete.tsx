@@ -1,7 +1,9 @@
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Button, ButtonProps, Dialog, DialogActions } from "@mui/material";
+
 import DialogTitleWithClose from "~/components/dialog/DialogTitleWithClose";
 import { INote } from "~/types/notes";
+
 import { useBtnDeleteNote } from "../../hooks";
 
 export type BtnDeleteNoteProps = ButtonProps & {

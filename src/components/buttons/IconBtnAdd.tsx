@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+
+import ControlPointOutlinedIcon from "@mui/icons-material/ControlPointOutlined";
 import { IconButton, IconButtonProps } from "@mui/material";
 
 const IconBtnAdd = forwardRef<
@@ -8,7 +9,7 @@ const IconBtnAdd = forwardRef<
 >((props, ref) => {
   return (
     <IconButton ref={ref} {...props}>
-      <AddCircleOutlineIcon />
+      <ControlPointOutlinedIcon />
     </IconButton>
   );
 });

@@ -1,5 +1,12 @@
 import { createTheme, Theme, ThemeOptions } from "@mui/material/styles";
 
+export const getNavSx = (opened: boolean) => ({
+  padding: 0.25,
+  transition: "width .6s",
+  width: { sm: opened ? "30rem" : "6rem" },
+  flexWrap: "wrap",
+});
+
 export const navigationTheme = (theme: Theme, isMenuOpen: boolean) => {
   return createTheme(theme, {
     components: {
@@ -9,6 +16,7 @@ export const navigationTheme = (theme: Theme, isMenuOpen: boolean) => {
             position: "relative",
             overflowY: "auto",
             padding: "0 .3rem 0 0",
+
             [theme.breakpoints.down("sm")]: {
               display: isMenuOpen ? "block" : "none",
               position: "fixed",
@@ -20,7 +28,7 @@ export const navigationTheme = (theme: Theme, isMenuOpen: boolean) => {
           },
         },
       },
-      MuiMenuItem: {
+      MuiListItem: {
         styleOverrides: {
           root: {
             height: "5rem",

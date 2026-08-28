@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+
 import NotesApi from "~/client/notes";
 import { ResponseError } from "~/types";
 import { INote } from "~/types/notes";
+
 import { QUERY_KEYS } from "./config";
 
 const useDetailsNote = (id: INote["id"], options = {}) => {

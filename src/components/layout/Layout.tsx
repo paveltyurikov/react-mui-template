@@ -1,19 +1,23 @@
-import { Stack, Toolbar } from "@mui/material";
 import { Outlet } from "react-router";
-import BtnToggleNav from "~/components/Layout/BtnToggleNav";
-import Header from "~/components/Layout/Header";
-import Main from "~/components/Layout/Main";
-import Navigation from "~/components/Layout/Navigation";
-import ThemeSwitch from "~/components/Layout/ThemeSwitch";
+
+import { Stack, Toolbar } from "@mui/material";
+
+import BtnToggleNav from "~/components/layout/BtnToggleNav";
+import Header from "~/components/layout/Header";
+import Main from "~/components/layout/Main";
+import Navigation from "~/components/layout/Navigation";
+import ThemeSwitch from "~/components/layout/ThemeSwitch";
 
 const Layout = () => {
   return (
     <>
       <Header>
         <Toolbar>
-          <Stack direction="row" alignItems="center">
+          <Stack direction="row" sx={{ flex: 1, alignItems: "center" }}>
             <BtnToggleNav />
-            <ThemeSwitch />
+            <Stack direction="row" sx={{ flex: 1, justifyContent: "flex-end" }}>
+              <ThemeSwitch />
+            </Stack>
           </Stack>
         </Toolbar>
       </Header>

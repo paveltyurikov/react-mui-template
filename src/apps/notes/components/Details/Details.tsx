@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+
 import formatDate from "~/lib/formatDate";
 import { INote } from "~/types/notes";
 

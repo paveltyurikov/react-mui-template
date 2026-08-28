@@ -1,7 +1,9 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+
 import i18nInit from "~/i18n";
 import enableMocking from "~/msw-mocks/enableMocking";
+
 import App from "./App";
 
 const root = ReactDOM.createRoot(

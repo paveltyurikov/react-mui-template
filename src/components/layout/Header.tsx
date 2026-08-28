@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
+
 import { AppBar } from "@mui/material";
-import { HEADER_HEIGHT } from "~/components/Layout/constants";
+
+import { HEADER_HEIGHT } from "~/components/layout/constants";
 
 const Header = ({ children }: { children: ReactNode }) => {
   return (

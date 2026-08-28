@@ -1,6 +1,8 @@
+import { useRouteError } from "react-router";
+
 import { Typography, Container } from "@mui/material";
 import { get } from "lodash";
-import { useRouteError } from "react-router";
+
 import Link from "../Link";
 
 export const ErrorPage = ({ error }: { error: unknown }) => {

@@ -1,5 +1,7 @@
 import BookIcon from "@mui/icons-material/Book";
+
 import { getListUrl } from "~/apps/notes/config/ui-urls";
+
 import NoteDetailsContainer from "./components/Details/DetailsContainer";
 import NoteListContainer from "./components/List/ListContainer";
 
@@ -15,6 +17,7 @@ export const POST_DETAILS_ROUTE = {
 };
 
 export const POST_NAV_ITEM = {
+  id: "blog",
   path: POST_ROUTE.path,
   title: "Blog",
   Icon: BookIcon,

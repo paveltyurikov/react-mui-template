@@ -1,8 +1,10 @@
 import { useCallback, useMemo } from "react";
+
 import { useNotify, useVisibility } from "~/hooks";
 import getNotifyErrorMessage from "~/lib/getNotifyErrorMessage";
 import { useDeleteNote } from "~/react-api/notes";
 import { INote } from "~/types/notes";
+
 import { getDeleteDialog, getDeleteNotify } from "../config/text";
 import useTranslation from "../hooks/useTranslation";
 
